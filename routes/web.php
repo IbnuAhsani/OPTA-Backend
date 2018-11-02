@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+$router->group(['prefix' => 'api'], function($router){
+
+    // Routes for User
+    $router->get('user/{id}', 'UserController@viewOneUser');
+});
