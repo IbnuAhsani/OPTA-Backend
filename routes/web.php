@@ -19,4 +19,7 @@ $router->group(['prefix' => 'api'], function($router){
 
     // Routes for User
     $router->get('user/{id}', 'UserController@viewOneUser');
+
+    // Routes for Bus
+    $router->get('bus/{id}', 'BusController@viewOneBus');
 });
