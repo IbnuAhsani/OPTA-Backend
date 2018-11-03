@@ -17,11 +17,13 @@ Route::get('/', function () {
 
 $router->group(['prefix' => 'api'], function($router){
 
+    // Routes for Auth
+    $router->post('login/', 'AuthController@login');
+
     // Routes for User
     $router->get('user/{id}', 'UserController@viewOneUser');
     $router->get('route/', 'BusController@viewRoutes');
     $router->post('user/register', 'UserController@register');
-    $router->post('user/login', 'UserController@login');
     $router->post('user/pay', 'UserController@pay');
 
     // Routes for Bus

@@ -16,29 +16,6 @@ class UserController extends Controller
         return response()->json(200);
     }
 
-    public function login(Request $request){
-        $user = User::where('email', $request['email'])->first();
-        
-        if(!$user){
-            return response()->json([
-                'status_code' => 403,
-                'error' => 'Email tersebut tidak terdaftar pada aplikasi ini'
-            ]);
-        } else {
-            if(!app('hash')->check($request['password'], $user->password)){
-                return response()->json([
-                    'status_code' => 403,
-                    'error' => 'Katasandi untuk Email tersebut salah, mohon dicoba lagi'
-                ]); 
-            } else {
-                return response()->json([
-                    'user_id' => $user->id,
-                    'token' => $user->remember_token
-                ]);
-            }
-        }
-    }
-    
     public function viewOneUser($user_id){
         $user = User::find($user_id);
 
