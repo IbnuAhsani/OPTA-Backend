@@ -11,4 +11,8 @@ class Bus extends Model
     protected $fillable = [
         'bus_number', 'price', 'bus_admin_id'
     ];
+
+    public function routes(){
+        return $this->hasMany('App\Route', 'bus_id');
+    }
 }
