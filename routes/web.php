@@ -21,6 +21,7 @@ $router->group(['prefix' => 'api'], function($router){
     $router->get('user/{id}', 'UserController@viewOneUser');
     $router->get('route/', 'BusController@viewRoutes');
     $router->post('user/register', 'UserController@register');
+    $router->post('user/login', 'UserController@login');
     $router->post('user/pay', 'UserController@pay');
 
     // Routes for Bus
