@@ -16,7 +16,7 @@ class CreateRouteTable extends Migration
         Schema::create('route', function (Blueprint $table) {
             $table->increments('id');
             $table->string('location_name', 150);
-            $table->smallInt('queue');
+            $table->smallInteger('queue');
             $table->float('latitude');
             $table->float('longitude');
             $table->integer('bus_id')->unsigned();
