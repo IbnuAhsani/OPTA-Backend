@@ -11,4 +11,8 @@ class Route extends Model
     protected $fillable = [
         'location_name', 'queue', 'latitude', 'longitude', 'bus_id'
     ];
+
+    public function bus(){
+        return $this->belongsTo('App\Bus', 'bus_id');
+    }
 }
