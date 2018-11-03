@@ -23,9 +23,9 @@ class UserController extends Controller
 
         if($user['balance'] < $bus['price']) {
             return response()->json([
-                "status_code" => 403,
-                "error" => "Saldo Kamu tidak cukup untuk membayar tiket Bus ini",
-                "price" => $bus['price']
+                'status_code' => 403,
+                'error' => "Saldo Kamu tidak cukup untuk membayar tiket Bus ini",
+                'price' => $bus['price']
             ]);
         } else {
             $newBalance = $user['balance'] - $bus['price'];
@@ -34,9 +34,9 @@ class UserController extends Controller
             $user->save();
     
             return response()->json([
-                "status_code" => 200,
-                "error" => null,
-                "price" => $bus['price'], 
+                'status_code' => 200,
+                'error' => null,
+                'price' => $bus['price'], 
             ]);
         }
     }
