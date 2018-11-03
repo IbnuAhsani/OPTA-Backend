@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function register(Request $request){
+        $request['remember_token'] = str_random(60);
+        $request['password'] = password_hash($request['password'], PASSWORD_BCRYPT);
+        $user = User::create($request->all());
+
+        return response()->json(200);
+    }
+    
     public function viewOneUser($user_id){
         $user = User::find($user_id);
 
