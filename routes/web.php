@@ -26,4 +26,7 @@ $router->group(['prefix' => 'api'], function($router){
 
     // Routes for Bus
     $router->get('bus/{id}', 'BusController@viewOneBus');
+
+    // Routes for Bus Admin
+    $router->post('bus-admin/register', 'BusAdminController@register');
 });
