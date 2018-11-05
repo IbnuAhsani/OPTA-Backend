@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Bus;
+use App\TopUpRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,6 +12,7 @@ class UserController extends Controller
     public function register(Request $request){
         $request['remember_token'] = str_random(60);
         $request['password'] = app('hash')->make($request['password']);
+
         $user = User::create($request->all());
 
         return response()->json(200);
@@ -23,11 +25,8 @@ class UserController extends Controller
     }
 
     public function pay(Request $request){
-        $user_id = $request->input('user_id');
-        $bus_id = $request->input('bus_id');
-
-        $user = User::find($user_id);
-        $bus = Bus::find($bus_id); 
+        $user = User::find($request['user_id']);
+        $bus = Bus::find($request['bus_id']); 
 
         if($user['balance'] < $bus['price']) {
             return response()->json([
@@ -47,5 +46,18 @@ class UserController extends Controller
                 'price' => $bus['price'], 
             ]);
         }
+    }
+
+    public function topup(Request $request){        
+        $request['unique_code'] = rand(0, 999);
+        $request['request_time'] = time();
+        $request['expire_time'] = time() + 172800000;
+
+        $topUpRequest = TopUpRequest::create($request->all());
+
+        return response()->json([
+            'status_code' => 200,
+            'error' => null
+        ]);
     }
 }
