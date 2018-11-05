@@ -23,5 +23,6 @@ class VerifyCsrfToken extends Middleware
         'api/user/register',
         'api/bus-admin/register',
         'api/login',
+        'api/topup'
     ];
 }
