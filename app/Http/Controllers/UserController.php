@@ -34,10 +34,9 @@ class UserController extends Controller
 
         if($user['balance'] < $bus['price']) {
             return response()->json([
-                'status_code' => 403,
                 'error' => "Saldo Kamu tidak cukup untuk membayar tiket Bus ini",
                 'price' => $bus['price']
-            ]);
+            ], 403);
         } else {
             $newBalance = $user['balance'] - $bus['price'];
     
@@ -53,10 +52,9 @@ class UserController extends Controller
             );
 
             return response()->json([
-                'status_code' => 200,
                 'error' => null,
                 'price' => $bus['price'], 
-            ]);
+            ], 200);
         }
     }
 
@@ -68,8 +66,7 @@ class UserController extends Controller
         $topUpRequest = TopUpRequest::create($request->all());
 
         return response()->json([
-            'status_code' => 200,
             'error' => null
-        ]);
+        ], 200);
     }
 }
