@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Bus;
 use App\TopUpRequest;
+use App\TripHistory;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -25,8 +26,11 @@ class UserController extends Controller
     }
 
     public function pay(Request $request){
-        $user = User::find($request['user_id']);
-        $bus = Bus::find($request['bus_id']); 
+        $userId = $request['user_id'];
+        $busId = $request['bus_id'];
+
+        $user = User::find($userId);
+        $bus = Bus::find($busId); 
 
         if($user['balance'] < $bus['price']) {
             return response()->json([
@@ -39,7 +43,15 @@ class UserController extends Controller
     
             $user->balance = $newBalance;
             $user->save();
-    
+
+            TripHistory::create(
+                array(
+                    'user_id' => $userId,
+                    'bus_id' => $busId,
+                    'on_board_time' => time()
+                )
+            );
+
             return response()->json([
                 'status_code' => 200,
                 'error' => null,
