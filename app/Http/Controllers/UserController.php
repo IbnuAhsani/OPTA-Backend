@@ -60,7 +60,7 @@ class UserController extends Controller
         }
     }
 
-    public function topup(Request $request){        
+    public function requestTopup(Request $request){        
         $request['unique_code'] = rand(0, 999);
         $request['request_time'] = time();
         $request['expire_time'] = time() + 172800000;
@@ -70,5 +70,11 @@ class UserController extends Controller
         return response()->json([
             'error' => null
         ], 200);
+    }
+
+    public function viewBalance(Request $request){
+        $balance = User::select('balance')->where('id', $request['user_id'])->get();
+
+        return response()->json($balance, 200);
     }
 }
