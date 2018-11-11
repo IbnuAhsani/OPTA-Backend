@@ -25,7 +25,8 @@ class AuthController extends Controller
                 } else {
                    return response()->json([
                         'user_id' => $busAdmin->id,
-                        'token' => $busAdmin->remember_token
+                        'token' => $busAdmin->remember_token,
+                        'privilege' => 1
                    ], 200);
                 }
             } else {
@@ -36,7 +37,8 @@ class AuthController extends Controller
                 } else {
                     return response()->json([
                         'user_id' => $user->id,
-                        'token' => $user->remember_token
+                        'token' => $user->remember_token,
+                        'privilege' => 2
                     ], 200);
                 }
             }
