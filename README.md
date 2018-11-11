@@ -4,7 +4,7 @@ Laravel Backend for OPTA (Online Payment for Transportation)
 ## API Contract
 Endpoint | Request Type | Header | Body | Data Returned
 :------------: | :------------: | :------------: | :------------: | :------------:
-login/ | POST | NULL | ```` POST_BODY{email: String, password: String} ```` | ```` RETURN{token: String, user_id: Int} ```` 
+login/ | POST | NULL | ```` POST_BODY{email: String, password: String} ```` | ```` RETURN{token: String, user_id: Int, privilege: Int} ```` 
 route/ | GET | NULL | NULL | ```` RETURN{id: Int, start_loc: String, end_loc: String, detail : [{Route}]} ```` 
 user/{user_id}/ | GET | NULL | NULL | ```` RETURN{id: Int, email: String, name: String, address: String, balance: BigInt, role: TinyInt, created_at: Date, updated_at: Date } ````
 user/register/ | POST | NULL | ```` POST_BODY{id: Int, email: String, name: String, address: String, balance: BigInt, role: TinyInt} ```` | ```` RETURN{status_code} ```` 
