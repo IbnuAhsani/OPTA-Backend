@@ -15,4 +15,8 @@ class Bus extends Model
     public function routes(){
         return $this->hasMany('App\Route', 'bus_id');
     }
+
+    public function busAdmin(){
+        return $this->belongsTo('App\BusAdmin', 'bus_admin_id');
+    }
 }
