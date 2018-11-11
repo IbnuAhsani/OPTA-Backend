@@ -15,4 +15,8 @@ class BusAdmin extends Model
     protected $hidden = [
         'password', 'remember_token'
     ];
+
+    public function busses(){
+        return $this->hasMany('App\Bus', 'bus_admin_id');
+    }
 }
