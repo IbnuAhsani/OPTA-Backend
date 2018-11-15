@@ -21,15 +21,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
 
+    @yield("style")
 </head>
 <body>
-
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-        @include("maskapai.header")
-        @include("maskapai.sidebar")
-        @yield("main")
-    </div>
-
+    @yield("main")
     <!-- MDL -->
     <script src="{{ asset('mdl/material.js') }}"></script>
 </body>

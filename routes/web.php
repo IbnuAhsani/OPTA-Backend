@@ -16,7 +16,10 @@ Route::get('/', function () {
 });
 
 $router->group(['prefix' => 'maskapai'], function($router) {
-    $router->get('/', 'MaskapaiController@home');
+    // the root is login
+    $router->get('/', 'MaskapaiController@home')->name('home');
+    $router->post('/login', 'MaskapaiController@login')->name('login');
+    $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard');
 });
 
 $router->group(['prefix' => 'api'], function($router){
