@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+$router->group(['prefix' => 'maskapai'], function($router) {
+    $router->get('/', 'MaskapaiController@home');
+});
+
 $router->group(['prefix' => 'api'], function($router){
 
     // Routes for Auth
