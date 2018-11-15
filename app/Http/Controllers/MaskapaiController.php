@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\BusAdmin;
+use App\Bus;
 use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
 
 class MaskapaiController extends Controller {
+    // Session KEY
+    const SESS_USER = "user";
+
     public function home() {
         return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
     }
@@ -38,12 +42,31 @@ class MaskapaiController extends Controller {
             ], 403);
         }
 
-        return view('maskapai/dashboard');
+        // save user id in session  
+        $req->session()->put("user", ['id' => $busAdmin->id]);
+
+        return redirect()->route('dashboard');
     }
 
     public function dashboard(Request $req) {
-        $buses = BusAdmin::all();
-        
-        return view('maskapai/dashboard');    
+        // get session
+        $id = $req->session()->get("user");
+
+        $buses = Bus::where('bus_admin_id', $id)->get();
+
+        if(count($buses) <= 0) {
+            // set empty
+            return view('maskapai/empty_dashboard');
+        }
+
+        $buses_map = [];
+
+        foreach ($buses as $key => $val) {
+            $buses_map[$key]['id'] = $val->id;
+            $buses_map[$key]['bus_number'] = $val->bus_number;
+            $buses_map[$key]['price'] = $val->price;
+        }
+
+        return view('maskapai/dashboard', ['buses' => $buses_map]);    
     }
 }
