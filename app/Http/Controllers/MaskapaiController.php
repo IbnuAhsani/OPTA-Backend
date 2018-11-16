@@ -86,4 +86,17 @@ class MaskapaiController extends Controller {
             return response()->json(['error' => 'Sistem bermasalah'], 400);
         }
     }
+
+    public function delete_bus(Request $req) {
+        $id = $req->input('id');
+        try {
+            $bus = Bus::where('id', $id)->delete();
+        } catch (\Throwable $th) {
+            // loggin exception
+        }
+
+        $bus_admin_id = $req->session()->get("user")['id'];
+        $busses = $this->bus_repo->get_busses($bus_admin_id);
+        return view('maskapai/dashboard', ['busses' => $busses]);
+    }
 }

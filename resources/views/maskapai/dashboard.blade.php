@@ -42,8 +42,16 @@ Data needed:
                   <td style="text-align: left">{{ $bus['bus_number'] }}</td>
                   <td style="text-align: left"><small>Rp</small>{{ number_format($bus['price'], 2, ",", ".") }}</td>
                   <td>
-                    <button id="edit" value={{ $bus['id'] }}>edit</button> 
-                    <button id="delete" value={{ $bus['id'] }}>-</button>
+                    <a href="/maskapai/edit?id={{ $bus['id'] }}">
+                      <button id="edit" value={{ $bus['id'] }}>
+                        edit
+                      </button> 
+                    </a> 
+                    <a href="/maskapai/delete?id={{ $bus['id'] }}">
+                      <button id="delete" value={{ $bus['id'] }}>
+                        -
+                      </button>
+                    </a>                       
                   </td>
                 </tr>
                 @endforeach
