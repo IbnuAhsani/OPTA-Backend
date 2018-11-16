@@ -20,6 +20,7 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/', 'MaskapaiController@home')->name('home');
     $router->post('/login', 'MaskapaiController@login')->name('login');
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard');
+    $router->post('/add_bus', 'MaskapaiController@add_bus');
 });
 
 $router->group(['prefix' => 'api'], function($router){

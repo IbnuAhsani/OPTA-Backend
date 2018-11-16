@@ -7,10 +7,17 @@ use App\Bus;
 use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
+use App\Repo\BusRepoImpl;
 
 class MaskapaiController extends Controller {
     // Session KEY
     const SESS_USER = "user";
+
+    private $bus_repo;
+
+    public function __construct() {
+        $this->bus_repo = new BusRepoImpl();
+    }
 
     public function home() {
         return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
@@ -50,23 +57,33 @@ class MaskapaiController extends Controller {
 
     public function dashboard(Request $req) {
         // get session
-        $id = $req->session()->get("user");
+        $id = $req->session()->get("user")['id'];
+        $buses = $this->bus_repo->get_busses($id);
+        return view('maskapai/dashboard', ['busses' => $buses]);    
+    }
 
-        $buses = Bus::where('bus_admin_id', $id)->get();
+    public function add_bus(Request $req) {
+        $bus_number = $req->input('bus_number');
+        $price = $req->input('price');
+        $bus_admin_id = $req->session()->get("user")['id'];
 
-        if(count($buses) <= 0) {
-            // set empty
-            return view('maskapai/empty_dashboard');
+        // validator
+        // ...
+
+        $bus_data = [
+            'bus_number' => $bus_number, 
+            'price' => $price, 
+            'bus_admin_id' => $bus_admin_id
+        ];
+        
+        try {
+            $bus = Bus::create($bus_data);
+            $busses = $this->bus_repo->get_busses($bus_admin_id);
+
+            return view('maskapai/dashboard', ['busses' => $busses]);
+        } catch (\Throwable $th) {
+            // log the exception
+            return response()->json(['error' => 'Sistem bermasalah'], 400);
         }
-
-        $buses_map = [];
-
-        foreach ($buses as $key => $val) {
-            $buses_map[$key]['id'] = $val->id;
-            $buses_map[$key]['bus_number'] = $val->bus_number;
-            $buses_map[$key]['price'] = $val->price;
-        }
-
-        return view('maskapai/dashboard', ['buses' => $buses_map]);    
     }
 }
