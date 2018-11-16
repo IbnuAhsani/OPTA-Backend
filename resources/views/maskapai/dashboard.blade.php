@@ -17,13 +17,13 @@ Data needed:
             <table style="width: 70%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
               <thead>
                 <tr>
-                  <th style="text-align: left;">No. <br> Bus</th>
+                  <th style="text-align: left;">No. Bus</th>
                   <th style="text-align: left">Price</th>
-                  <th>Action</th>
+                  <th style="text-align: center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr style="background: #ccc">
                   <form id="add_bus" method="POST" action="/maskapai/add_bus">
                     {{ csrf_field() }}
                     <td style="text-align: left">
@@ -32,7 +32,7 @@ Data needed:
                     <td style="text-align: left">
                       <small>Rp</small> <input type="number" name="price" id="price">
                     </td>
-                    <td>
+                    <td style="text-align: center">
                       <button id="btn_add">+</button>
                     </td>
                   </form>
@@ -41,7 +41,7 @@ Data needed:
                 <tr>
                   <td style="text-align: left">{{ $bus['bus_number'] }}</td>
                   <td style="text-align: left"><small>Rp</small>{{ number_format($bus['price'], 2, ",", ".") }}</td>
-                  <td>
+                  <td style="text-align: center">
                     <a href="/maskapai/edit?id={{ $bus['id'] }}">
                       <button id="edit" value={{ $bus['id'] }}>
                         edit
