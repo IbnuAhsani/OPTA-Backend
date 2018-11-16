@@ -22,6 +22,8 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard');
     $router->post('/add_bus', 'MaskapaiController@add_bus');
     $router->get('/delete', 'MaskapaiController@delete_bus');
+    $router->get('/edit', 'MaskapaiController@edit_bus');
+    $router->get('/save_edit', 'MaskapaiController@save_edit');
 });
 
 $router->group(['prefix' => 'api'], function($router){

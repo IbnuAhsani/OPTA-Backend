@@ -8,6 +8,7 @@ use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
 use App\Repo\BusRepoImpl;
+use Exception;
 
 class MaskapaiController extends Controller {
     // Session KEY
@@ -96,6 +97,44 @@ class MaskapaiController extends Controller {
         }
 
         $bus_admin_id = $req->session()->get("user")['id'];
+        $busses = $this->bus_repo->get_busses($bus_admin_id);
+        return view('maskapai/dashboard', ['busses' => $busses]);
+    }
+
+    public function edit_bus(Request $req) {
+        $id = $req->input('id');
+        
+        $bus = null;
+        
+        try {
+            $bus = Bus::where('id', $id)->firstOrFail();
+        } catch(Exception $e) {
+            // logging the exception
+            var_dump($e);
+        }
+
+        return view('maskapai/edit', ['bus' => $bus]);
+    }
+
+    public function save_edit(Request $req) {
+        $bus_number = $req->input('bus_number');
+        $price = $req->input('price');
+        $id = $req->input('bus_id');
+
+        try {
+            $bus = Bus::where('id', $id)
+                ->update([
+                    'bus_number' => $bus_number,
+                    'price' => $price
+                ]);
+        } catch (Exception $e) {
+            //throw $th;
+            echo "<pre>";
+            var_dump($e);
+        }
+
+        $bus_admin_id = $req->session()->get("user")['id'];
+
         $busses = $this->bus_repo->get_busses($bus_admin_id);
         return view('maskapai/dashboard', ['busses' => $busses]);
     }
