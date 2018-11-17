@@ -65,8 +65,14 @@ class MaskapaiController extends Controller {
     public function dashboard(Request $req) {
         // get session
         $id = $req->session()->get("user")['id'];
-        $buses = $this->bus_repo->get_busses($id);
-        return view('maskapai/dashboard', ['busses' => $buses]);    
+        $busses = $this->bus_repo->get_busses($id);
+        
+        if(count($busses) <= 0) {
+            // set empty
+            return view('maskapai/empty_dashboard');
+        }
+
+        return view('maskapai/dashboard', ['busses' => $busses]);    
     }
 
     public function add_bus(Request $req) {
@@ -158,7 +164,9 @@ class MaskapaiController extends Controller {
     }
 
     public function download_qr(Request $req) {
-        $file_path = 'qr/1.png';
+        $bus_id = $req->input('bus_id');
+        $file_path = "qr/{$bus_id}.png";
+
         try {
             // $file = Storage::get($file_path);
             return Storage::download($file_path);

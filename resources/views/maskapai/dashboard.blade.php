@@ -52,7 +52,7 @@ Data needed:
                         -
                       </button>
                     </a>
-                    <a href="/maskapai/download_qr">
+                    <a href="/maskapai/download_qr?bus_id={{ $bus['id'] }}">
                       <button id="download_qr" value={{ $bus['id'] }}>
                         QR
                       </button>

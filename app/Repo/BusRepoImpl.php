@@ -7,11 +7,16 @@ use App\Bus;
 
 class BusRepoImpl implements BusRepo {
     public function get_busses(int $bus_admin_id) {
-        $buses = Bus::where('bus_admin_id', $bus_admin_id)->get();
+        try {
+            $buses = Bus::where('bus_admin_id', $bus_admin_id)->get();
+        } catch(\Exception $e) {
+            return [];
+        }
 
         if(count($buses) <= 0) {
             // set empty
-            return view('maskapai/empty_dashboard');
+            return [];
+            // return view('maskapai/empty_dashboard');
         }
 
         $buses_map = [];
