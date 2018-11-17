@@ -133,12 +133,15 @@ class MaskapaiController extends Controller {
         
         try {
             $bus = Bus::where('id', $id)->firstOrFail();
+            $routes = DB::table('route')
+                ->where('bus_id', $id)
+                ->get();
         } catch(Exception $e) {
             // logging the exception
-            var_dump($e);
+            dd($e);
         }
 
-        return view('maskapai/edit', ['bus' => $bus]);
+        return view('maskapai/edit', ['bus' => $bus, 'routes' => $routes]);
     }
 
     public function save_edit(Request $req) {

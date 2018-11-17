@@ -31,7 +31,11 @@ Data needed:
                 </div>
                 <div class="mdl-cell--6-col">
                     <label for="route">Rute yang dilewati</label> <br>
-                    <ol id="route-list" value=""></ol>
+                    <ol id="route-list" value="">
+                        @foreach($routes as $route)
+                            <li value="{{ $route->queue }}">{{ $route->location_name }}</li>
+                        @endforeach
+                    </ol>
                     <input id="route" type="text"> 
                     <button type="button" id="add-new-route">+</button>
                 </div>
@@ -40,7 +44,9 @@ Data needed:
 
                 <div id="route-field"></div>
 
-                <button type="submit">Save</button>
+                <div class="mdl-cell--12-col">
+                    <button type="submit">Save</button>
+                </div>
             </form>
         </div>
       </div>
