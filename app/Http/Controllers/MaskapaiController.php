@@ -8,6 +8,7 @@ use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
 use App\Repo\BusRepoImpl;
+use Illuminate\Support\Facades\Storage;
 use Exception;
 
 class MaskapaiController extends Controller {
@@ -137,5 +138,15 @@ class MaskapaiController extends Controller {
 
         $busses = $this->bus_repo->get_busses($bus_admin_id);
         return view('maskapai/dashboard', ['busses' => $busses]);
+    }
+
+    public function download_qr(Request $req) {
+        $file_path = 'qr/1.png';
+        try {
+            // $file = Storage::get($file_path);
+            return Storage::download($file_path);
+        } catch (Exception $e) {
+            var_dump($e);
+        }
     }
 }

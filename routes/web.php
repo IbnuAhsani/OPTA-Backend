@@ -24,6 +24,7 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/delete', 'MaskapaiController@delete_bus');
     $router->get('/edit', 'MaskapaiController@edit_bus');
     $router->get('/save_edit', 'MaskapaiController@save_edit');
+    $router->get('/download_qr', 'MaskapaiController@download_qr')->name('download.qr');
 });
 
 $router->group(['prefix' => 'api'], function($router){

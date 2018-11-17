@@ -51,7 +51,12 @@ Data needed:
                       <button id="delete" value={{ $bus['id'] }}>
                         -
                       </button>
-                    </a>                       
+                    </a>
+                    <a href="/maskapai/download_qr">
+                      <button id="download_qr" value={{ $bus['id'] }}>
+                        QR
+                      </button>
+                    </a>                
                   </td>
                 </tr>
                 @endforeach
