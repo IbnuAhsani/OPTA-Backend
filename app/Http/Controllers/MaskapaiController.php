@@ -11,6 +11,11 @@ use App\Repo\BusRepoImpl;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+
 class MaskapaiController extends Controller {
     // Session KEY
     const SESS_USER = "user";
@@ -80,10 +85,22 @@ class MaskapaiController extends Controller {
         
         try {
             $bus = Bus::create($bus_data);
-            $busses = $this->bus_repo->get_busses($bus_admin_id);
+            
+            // create qr code
+            $qr = new ImageRenderer(
+                new RendererStyle(400),
+                new ImagickImageBackEnd()
+            );
 
+            $writer = new Writer($qr);
+
+            // save to Storage
+            Storage::put("qr/{$bus->id}.png", $writer->writeString("{$bus->id}"));
+
+            $busses = $this->bus_repo->get_busses($bus_admin_id);
             return view('maskapai/dashboard', ['busses' => $busses]);
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
+            dd($e);
             // log the exception
             return response()->json(['error' => 'Sistem bermasalah'], 400);
         }
