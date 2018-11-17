@@ -103,8 +103,8 @@ class MaskapaiController extends Controller {
             // save to Storage
             Storage::put("qr/{$bus->id}.png", $writer->writeString("{$bus->id}"));
 
-            $busses = $this->bus_repo->get_busses($bus_admin_id);
-            return view('maskapai/dashboard', ['busses' => $busses]);
+            return redirect()->route('dashboard');
+
         } catch (Exception $e) {
             dd($e);
             // log the exception
@@ -120,9 +120,7 @@ class MaskapaiController extends Controller {
             // loggin exception
         }
 
-        $bus_admin_id = $req->session()->get("user")['id'];
-        $busses = $this->bus_repo->get_busses($bus_admin_id);
-        return view('maskapai/dashboard', ['busses' => $busses]);
+        return redirect()->route('dashboard');
     }
 
     public function edit_bus(Request $req) {
@@ -157,10 +155,7 @@ class MaskapaiController extends Controller {
             var_dump($e);
         }
 
-        $bus_admin_id = $req->session()->get("user")['id'];
-
-        $busses = $this->bus_repo->get_busses($bus_admin_id);
-        return view('maskapai/dashboard', ['busses' => $busses]);
+        return redirect()->route('dashboard');
     }
 
     public function download_qr(Request $req) {

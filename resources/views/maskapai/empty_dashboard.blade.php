@@ -11,7 +11,7 @@
             <div style="margin: auto" class="mdl-cell--12-col">
               <h4 style="text-align: center"><i>Belum ada bus</i></h4>
             </div>
-            <table style="width: 70%; margin: auto" class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <table style="width: 70%; margin: auto; overflow: auto" class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
               <thead>
                 <tr>
                   <th style="text-align: left;">No. Bus</th>

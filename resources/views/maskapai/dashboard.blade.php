@@ -13,7 +13,7 @@ Data needed:
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid demo-content">
 
-        <div style="padding: 16px;" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+        <div style="padding: 16px; overflow: auto" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <table style="width: 70%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
               <thead>
                 <tr>
