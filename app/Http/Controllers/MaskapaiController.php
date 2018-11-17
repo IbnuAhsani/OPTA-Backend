@@ -126,6 +126,16 @@ class MaskapaiController extends Controller {
         return redirect()->route('dashboard');
     }
 
+    public function view_routes(Request $req) {
+        $bus_id = $req->input('bus_id');
+        $routes = DB::table('route')
+            ->select('location_name')
+            ->where('bus_id', $bus_id)
+            ->get();
+        
+        return response()->json($routes, 200);
+    }
+
     public function edit_bus(Request $req) {
         $id = $req->input('id');
         
@@ -134,6 +144,7 @@ class MaskapaiController extends Controller {
         try {
             $bus = Bus::where('id', $id)->firstOrFail();
             $routes = DB::table('route')
+                ->select('location_name', 'queue')
                 ->where('bus_id', $id)
                 ->get();
         } catch(Exception $e) {

@@ -32,9 +32,9 @@ Data needed:
                 <div class="mdl-cell--6-col">
                     <label for="route">Rute yang dilewati</label> <br>
                     <ol id="route-list" value="">
-                        @foreach($routes as $route)
+                        <!-- @foreach($routes as $route)
                             <li value="{{ $route->queue }}">{{ $route->location_name }}</li>
-                        @endforeach
+                        @endforeach -->
                     </ol>
                     <input id="route" type="text"> 
                     <button type="button" id="add-new-route">+</button>
@@ -58,33 +58,55 @@ Data needed:
     const addNewRoute = document.getElementById("add-new-route")
     const routeField = document.getElementById("route-field")
 
+    const BUS_ID = {{ $bus->id }}
+
     const state = {
         route: []
     }
 
-    const addInputRoute = (event) => {
-        event.preventDefault();
+    const getRoutes = async () => {
+        try {
+            const req = await fetch(`/maskapai/routes?bus_id=${BUS_ID}`, {
+                method: "GET"
+            })
+            const res = await req.json()
+            console.log(res)
+            state.route = res.map(el => el.location_name)
+            console.log("state", state)
 
-        // mutate state
-        state.route.push(route.value)
-        
+            setRouteList(state.route)
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const setRouteList = (routes) => {
         // show the current list
-        const itemList = document.createElement("li")
-        const itemContent = document.createTextNode(currentRoute.value)
         const routeList = document.getElementById("route-list")
-        itemList.appendChild(itemContent)
-        routeList.appendChild(itemList)
+        while(routeList.firstChild) {
+            routeList.removeChild(routeList.firstChild)
+        }
 
-        console.log("currentRoute", currentRoute.value)
+        routes.forEach(el => {
+            const itemList = document.createElement("li")
+            const itemContent = document.createTextNode(el)
+            itemList.appendChild(itemContent)
+            routeList.appendChild(itemList)
+        })
 
-        // empty routeField
+    }
+
+    const setRouteField = (routes) => {
+        const routeField = document.getElementById("route-field")
+
         while(routeField.firstChild) {
             routeField.removeChild(routeField.firstChild)
         }
 
         // create new input element
         // and append it to the route filed
-        state.route.forEach(el => {
+        routes.forEach(el => {
             const newRoute = document.createElement("input")
             newRoute.value = el
             newRoute.name = "routes[]"
@@ -93,12 +115,31 @@ Data needed:
             routeField.appendChild(newRoute)
             routeField
         });
+    }
+
+    const addInputRoute = (event) => {
+        event.preventDefault();
+
+        // mutate state
+        state.route.push(route.value)
+
+        // show the current list
+        setRouteList(state.route)
+        console.log("currentRoute", currentRoute.value)
+        
+        // empty routeField
+        while(routeField.firstChild) {
+            routeField.removeChild(routeField.firstChild)
+        }
+
+        setRouteField(state.route)
 
         currentRoute.value = ""
         console.log("state", state)
     }
 
     window.onload = () => {
+        getRoutes()
         addNewRoute.onclick = addInputRoute
     }
 </script>
