@@ -8,6 +8,7 @@ use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
 use App\Repo\BusRepoImpl;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -41,23 +42,23 @@ class MaskapaiController extends Controller {
             ], 403);
         }
 
-        $busAdmin = BusAdmin::where('email', $email)->first();
+        $bus_admin = BusAdmin::where('email', $email)->first();
 
-        if($busAdmin == null) {
+        if($bus_admin == null) {
             // set error
             return response()->json([
                 'error' => 'Akun tidak terdaftar'
             ], 403);
         }
 
-        if(!app('hash')->check($password, $busAdmin->password)) {
+        if(!app('hash')->check($password, $bus_admin->password)) {
             return response()->json([
                 'error' => 'Email atau katasandi salah, mohon dicoba lagi'
             ], 403);
         }
 
         // save user id in session  
-        $req->session()->put("user", ['id' => $busAdmin->id]);
+        $req->session()->put("user", ['id' => $bus_admin->id]);
 
         return redirect()->route('dashboard');
     }
@@ -78,6 +79,7 @@ class MaskapaiController extends Controller {
     public function add_bus(Request $req) {
         $bus_number = $req->input('bus_number');
         $price = $req->input('price');
+
         $bus_admin_id = $req->session()->get("user")['id'];
 
         // validator
@@ -103,7 +105,8 @@ class MaskapaiController extends Controller {
             // save to Storage
             Storage::put("qr/{$bus->id}.png", $writer->writeString("{$bus->id}"));
 
-            return redirect()->route('dashboard');
+            // return redirect()->route('dashboard');
+            return redirect()->route('edit_bus', ['id' => $bus->id]);
 
         } catch (Exception $e) {
             dd($e);
@@ -141,6 +144,27 @@ class MaskapaiController extends Controller {
     public function save_edit(Request $req) {
         $bus_number = $req->input('bus_number');
         $price = $req->input('price');
+        $routes = $req->input('routes');
+        $bus_id = $req->input('bus_id');
+
+        // mapping the routes input
+        try {
+            DB::beginTransaction();
+            foreach ($routes as $key => $route) {
+                DB::table('route')->insert([
+                    'location_name' => $route,
+                    'queue' => $key+1,
+                    'latitude' => 0,
+                    'longitude' => 0,
+                    'bus_id' => $bus_id, 
+                ]);
+            }
+            DB::commit();
+        } catch(\Exception $e) {
+            // logging error
+            dd($e);
+        }
+
         $id = $req->input('bus_id');
 
         try {
