@@ -40,28 +40,27 @@ Data needed:
             <form class="mdl-grid" method="POST" action="/maskapai/save_edit">
                 {{ csrf_field() }}
 
-                <div class="mdl-cell--5-col container">
-                    <h4 for="route">Rute yang dilewati</h4>
+                <div class="mdl-cell--5-col mdl-grid container">
+                    <div class="mdl-cell--12-col">
+                        <h4 for="route">Rute yang dilewati</h4>
 
-                    <label for="route">Tambah Rute</label> <br>
-                    <input class="input-field" id="route" type="text"> 
-                    
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" type="button" id="add-new-route">
-                        <i class="material-icons">add</i>
-                    </button>
-                    
-                    <button id="save-changes" type="submit" class="mdl-button mmdl-js-ripple-effect">
-                        <span>simpan</span>
-                        <i class="material-icons">save</i>
-                    </button>
+                        <label for="route">Tambah Rute</label> <br>
+                        <input class="input-field" id="route" type="text"> 
+                        
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" type="button" id="add-new-route">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
 
-                    <ol id="route-list" class="mdl-list"></ol>
+                    <div class="mdl-cell--12-col">
+                        <ol id="route-list" class="mdl-list"></ol>
+                    </div>
 
                 </div>
 
                 <div class="mdl-layout-spacer"></div>
 
-                <div class="mdl-cell--5-col container">
+                <div class="mdl-cell--6-col container">
                     <h4>Bus</h4>
                     <div>
                         <label for="bus_number">No. Bus</label> <br>
@@ -74,6 +73,13 @@ Data needed:
                         <label for="price">Harga</label> <br>
                         <input class="input-field" type="number" name="price" id="bus-price" value="{{ $bus['price'] }}">                
                     </div>
+
+                    <br>
+
+                    <button id="save-changes" type="submit" class="mdl-button mmdl-js-ripple-effect">
+                        <span>simpan</span>
+                        <i class="material-icons">save</i>
+                    </button>
 
                     <input type="hidden" name="bus_id" id="bus-id" value="{{ $bus['id'] }}">
                 </div>
