@@ -35,6 +35,15 @@ const handleRouteDelete = (routeId) => {
     setRouteList(state.route)
 }
 
+const swapRoute = (idxA, idxB) => {
+    const y = state.route[idxB]
+    state.route[idxB] = state.route[idxA]
+    state.route[idxA] = y
+
+    setRouteList(state.route)
+    console.log(state.route)
+}
+
 const setRouteList = (routes) => {
     // show the current list
     const routeList = document.getElementById("route-list")
@@ -42,16 +51,37 @@ const setRouteList = (routes) => {
         routeList.removeChild(routeList.firstChild)
     }
 
-    routes.forEach(el => {
+    const ellength = routes.length-1
+
+    routes.forEach((el, idx) => {
         const itemList = document.createElement("li")
         const itemContent = document.createTextNode(el.location_name)
         itemList.appendChild(itemContent)
         
         const btnDelete = document.createElement("button")
-        const btnContent = document.createTextNode("-")
-        btnDelete.appendChild(btnContent)
+        const btnDeleteContent = document.createTextNode("-")
+        btnDelete.appendChild(btnDeleteContent)
         btnDelete.onclick = () => handleRouteDelete(el.id)
         itemList.append(btnDelete)
+
+        if(idx > 0) {
+            const btnUp = document.createElement("button")
+            const upContent = document.createTextNode("^")
+            btnUp.appendChild(upContent)
+            btnUp.type = "button"
+            btnUp.onclick = () => swapRoute(idx, idx-1)
+            itemList.append(btnUp)
+        }
+
+        if(idx < (ellength)) {
+            const btnDown = document.createElement("button")
+            const downContent = document.createTextNode("v")
+            btnDown.type = "button"
+            btnDown.appendChild(downContent)
+            btnDown.onclick = () => swapRoute(idx, idx+1)
+            itemList.append(btnDown)
+        }
+
 
         routeList.appendChild(itemList)
     })
