@@ -55,30 +55,56 @@ const setRouteList = (routes) => {
 
     routes.forEach((el, idx) => {
         const itemList = document.createElement("li")
-        const itemContent = document.createTextNode(el.location_name)
-        itemList.appendChild(itemContent)
+        itemList.classList.add("mdl-list__item")
+        const itemSpan = document.createElement("span")
+        itemSpan.classList.add("mdl-list__item-primary-content")
+        const itemContent = document.createTextNode(`${idx + 1}. ${el.location_name}`)
+        itemSpan.appendChild(itemContent)
+        itemList.appendChild(itemSpan)
         
-        const btnDelete = document.createElement("button")
-        const btnDeleteContent = document.createTextNode("-")
-        btnDelete.appendChild(btnDeleteContent)
+        const btnDelete = document.createElement("span")
+        const iconDelete = document.createElement("i")
+        const btnDeleteContent = document.createTextNode("delete_outline")
+        
         btnDelete.onclick = () => handleRouteDelete(el.id)
+
+        iconDelete.classList.add("material-icons")
+        btnDelete.classList.add("edit-button")
+
+        iconDelete.appendChild(btnDeleteContent)
+        btnDelete.appendChild(iconDelete)
         itemList.append(btnDelete)
+        
 
         if(idx > 0) {
-            const btnUp = document.createElement("button")
-            const upContent = document.createTextNode("^")
-            btnUp.appendChild(upContent)
-            btnUp.type = "button"
+            const btnUp = document.createElement("span")
+            const iconUp = document.createElement("i")
+            const upContent = document.createTextNode("arrow_upward")
+            
             btnUp.onclick = () => swapRoute(idx, idx-1)
+            btnUp.type = "button"
+
+            iconUp.classList.add("material-icons")
+            btnUp.classList.add("edit-button")
+
+            iconUp.appendChild(upContent)
+            btnUp.appendChild(iconUp)
             itemList.append(btnUp)
         }
 
         if(idx < (ellength)) {
-            const btnDown = document.createElement("button")
-            const downContent = document.createTextNode("v")
-            btnDown.type = "button"
-            btnDown.appendChild(downContent)
+            const btnDown = document.createElement("span")
+            const downContent = document.createTextNode("arrow_downward")
+            const iconDown = document.createElement("i")
+
             btnDown.onclick = () => swapRoute(idx, idx+1)
+            btnDown.type = "button"
+
+            iconDown.classList.add("material-icons")
+            btnDown.classList.add("edit-button")
+
+            iconDown.appendChild(downContent)
+            btnDown.appendChild(iconDown)
             itemList.append(btnDown)
         }
 
