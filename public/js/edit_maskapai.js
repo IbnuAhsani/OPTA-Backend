@@ -24,6 +24,17 @@ const getRoutes = async () => {
     }
 }
 
+const handleRouteDelete = (routeId) => {
+    state.route = state.route
+        .filter(el => el.id !== routeId)
+        .map((el,i) => {
+            el.queue = i
+            return el
+        })
+    console.log(state)
+    setRouteList(state.route)
+}
+
 const setRouteList = (routes) => {
     // show the current list
     const routeList = document.getElementById("route-list")
@@ -35,33 +46,19 @@ const setRouteList = (routes) => {
         const itemList = document.createElement("li")
         const itemContent = document.createTextNode(el.location_name)
         itemList.appendChild(itemContent)
+        
+        const btnDelete = document.createElement("button")
+        const btnContent = document.createTextNode("-")
+        btnDelete.appendChild(btnContent)
+        btnDelete.onclick = () => handleRouteDelete(el.id)
+        itemList.append(btnDelete)
+
         routeList.appendChild(itemList)
     })
 
 }
 
-const setRouteField = (routes) => {
-    const routeField = document.getElementById("route-field")
-
-    while(routeField.firstChild) {
-        routeField.removeChild(routeField.firstChild)
-    }
-
-    // create new input element
-    // and append it to the route filed
-    routes.forEach(el => {
-        const newRoute = document.createElement("input")
-        newRoute.value = el
-        newRoute.name = "routes[]"
-        newRoute.type = "hidden"
-
-        routeField.appendChild(newRoute)
-        routeField
-    });
-}
-
 const addInputRoute = (event) => {
-    const routeField = document.getElementById("route-field")
     const currentRoute = document.getElementById("route")
 
     event.preventDefault();
@@ -82,12 +79,6 @@ const addInputRoute = (event) => {
     setRouteList(state.route)
     console.log("currentRoute", currentRoute.value)
     
-    // empty routeField
-    while(routeField.firstChild) {
-        routeField.removeChild(routeField.firstChild)
-    }
-    setRouteField(state.route)
-
     console.log("state", state)
     currentRoute.value = ""
 }
@@ -143,10 +134,7 @@ const handleCrsfToken = (event) => {
 
 window.onload = () => {
     const busId = document.getElementById("bus-id")
-    const routeList = document.getElementById("route-list")
-    const currentRoute = document.getElementById("route")
     const addNewRoute = document.getElementById("add-new-route")
-    const routeField = document.getElementById("route-field")
     const saveChange = document.getElementById("save-changes")
     const busNumber = document.getElementById("bus-number")
     const busPrice = document.getElementById("bus-price")
@@ -160,7 +148,6 @@ window.onload = () => {
     state.busNumber = parseInt(busNumber.value)
     state.busPrice = parseFloat(busPrice.value)
     state.busId = parseInt(busId.value, 10)
-    // csrfToken.onchage = handleCrsfToken
     state.csrfToken = meta[3].content
 
     getRoutes()
