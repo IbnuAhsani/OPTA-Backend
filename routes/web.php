@@ -23,9 +23,10 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->post('/add_bus', 'MaskapaiController@add_bus')->middleware('maskapai');
     $router->get('/delete', 'MaskapaiController@delete_bus')->middleware('maskapai');
     $router->get('/edit', 'MaskapaiController@edit_bus')->name('edit_bus')->middleware('maskapai');
-    $router->post('/save_edit', 'MaskapaiController@save_edit')->middleware('maskapai');
     $router->get('/download_qr', 'MaskapaiController@download_qr')->name('download.qr')->middleware('maskapai');
 
+    $router->post('/save_edit', 'MaskapaiController@save_edit')->middleware('maskapai');
+ 
     $router->get('/routes', 'MaskapaiController@view_routes');
 });
 

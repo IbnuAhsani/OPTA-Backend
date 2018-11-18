@@ -129,7 +129,7 @@ class MaskapaiController extends Controller {
     public function view_routes(Request $req) {
         $bus_id = $req->input('bus_id');
         $routes = DB::table('route')
-            ->select('location_name')
+            ->select('id','queue','location_name')
             ->where('bus_id', $bus_id)
             ->get();
         
@@ -152,48 +152,47 @@ class MaskapaiController extends Controller {
             dd($e);
         }
 
-        return view('maskapai/edit', ['bus' => $bus, 'routes' => $routes]);
+        return view('maskapai/edit', ['bus' => $bus, 'routes' => $routes, 'session' => session("user")]);
     }
 
     public function save_edit(Request $req) {
-        $bus_number = $req->input('bus_number');
-        $price = $req->input('price');
-        $routes = $req->input('routes');
-        $bus_id = $req->input('bus_id');
+        $bus_number = $req['bus_number'];
+        $price = $req['price'];
+        $bus_id = $req['bus_id'];
+        $routes = $req['routes'];
+
+        // validate the input
 
         // mapping the routes input
         try {
+            // recreate the route
             DB::beginTransaction();
+            DB::delete("DELETE FROM route WHERE bus_id = $bus_id ");
             foreach ($routes as $key => $route) {
-                DB::table('route')->insert([
-                    'location_name' => $route,
-                    'queue' => $key+1,
-                    'latitude' => 0,
-                    'longitude' => 0,
-                    'bus_id' => $bus_id, 
-                ]);
+                    DB::table('route')->insert([
+                        'location_name' => $route['location_name'],
+                        'queue' => $route['queue'],
+                        'latitude' => 0,
+                        'longitude' => 0,
+                        'bus_id' => $bus_id, 
+                    ]);
             }
-            DB::commit();
-        } catch(\Exception $e) {
-            // logging error
-            dd($e);
-        }
 
-        $id = $req->input('bus_id');
-
-        try {
-            $bus = Bus::where('id', $id)
+            $bus = Bus::where('id', $bus_id)
                 ->update([
                     'bus_number' => $bus_number,
                     'price' => $price
                 ]);
-        } catch (Exception $e) {
-            //throw $th;
-            echo "<pre>";
-            var_dump($e);
+
+            DB::commit();
+        } catch(\Exception $e) {
+            return response()->json(500);
+            // logging error
+            dd($e);
         }
 
-        return redirect()->route('dashboard');
+        return response()->json(200);
+        // return redirect()->route('dashboard');
     }
 
     public function download_qr(Request $req) {
