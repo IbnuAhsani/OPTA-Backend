@@ -28,6 +28,10 @@ class MaskapaiController extends Controller {
     }
 
     public function home() {
+        if(session("user") !== null) {
+            return redirect()->route('dashboard');
+        }
+
         return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
     }
 
@@ -61,6 +65,11 @@ class MaskapaiController extends Controller {
         $req->session()->put("user", ['id' => $bus_admin->id]);
 
         return redirect()->route('dashboard');
+    }
+
+    public function logout(Request $req) {
+        $req->session()->forget('user');
+        return redirect()->route('home');
     }
 
     public function dashboard(Request $req) {
@@ -205,5 +214,12 @@ class MaskapaiController extends Controller {
         } catch (Exception $e) {
             var_dump($e);
         }
+    }
+
+    public function view_income(Request $req) {
+        $money_to_withdraw = 100000.00;
+        return view('maskapai/income', [
+            'money_to_withdraw' => $money_to_withdraw,
+        ]);
     }
 }
