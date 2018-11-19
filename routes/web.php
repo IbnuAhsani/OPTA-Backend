@@ -19,6 +19,7 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     // the root is login
     $router->get('/', 'MaskapaiController@home')->name('home');
     $router->post('/login', 'MaskapaiController@login')->name('login');
+    $router->get('/logout', 'MaskapaiController@logout')->name('logout');
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard')->middleware('maskapai');
     $router->post('/add_bus', 'MaskapaiController@add_bus')->middleware('maskapai');
     $router->get('/delete', 'MaskapaiController@delete_bus')->middleware('maskapai');
@@ -27,7 +28,7 @@ $router->group(['prefix' => 'maskapai'], function($router) {
 
     $router->post('/save_edit', 'MaskapaiController@save_edit')->middleware('maskapai');
  
-    $router->get('/routes', 'MaskapaiController@view_routes');
+    $router->get('/routes', 'MaskapaiController@view_routes')->middleware('maskapai');
 });
 
 $router->group(['prefix' => 'api'], function($router){
