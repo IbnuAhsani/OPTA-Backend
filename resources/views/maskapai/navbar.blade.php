@@ -14,9 +14,11 @@
             </div> 
         --}}
         <span>Logout</span>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-            <i class="material-icons">exit_to_app</i>
-        </button>
+        <a href="/maskapai/logout">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                <i class="material-icons">exit_to_app</i>
+            </button>
+        </a>
 
         {{-- 
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
