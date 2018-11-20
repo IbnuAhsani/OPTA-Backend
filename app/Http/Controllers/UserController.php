@@ -60,11 +60,18 @@ class UserController extends Controller
         }
     }
 
-    public function requestTopup(Request $request){        
-        $request['unique_code'] = rand(0, 999);
+    public function requestTopup(Request $request){
+        $newestBalance = TopUpRequest::where('user_id', $request['user_id'])
+                                        ->orderBy('request_time', 'desc')
+                                        ->limit(1)
+                                        ->get();
+                
+        $newestBalance->isEmpty() ? 
+            $request['unique_code'] = 1 :
+            $request['unique_code'] = $newestBalance[0]['unique_code'] + 1;        
+        
         $request['request_time'] = time();
         $request['expire_time'] = time() + 172800000;
-
         $topUpRequest = TopUpRequest::create($request->all());
 
         return response()->json([
