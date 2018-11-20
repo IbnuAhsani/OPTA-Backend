@@ -36,8 +36,17 @@ Data:
             <div class="mdl-cell--12-col">
                 <h4>Money to Withdraw</h4>
             </div>
-            <div class="mdl-cell--4-col">
-                <h5>{{ $money_to_withdraw }}</h5>
+            <div class="mdl-cell--12-col">
+                <h4><small>Rp</small>{{ number_format($money_to_withdraw, 2, ",", ".") }}</h4>
+            </div>
+            <div class="mld-cell--12-col mdl-btn">
+                <form method="POST" action="/maskapai/withdraw">
+                {{ csrf_field() }}
+
+                <button type="submit" style="color: #fff" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Withdraw
+                </button>
+                </form>
             </div>
         </div>
 
