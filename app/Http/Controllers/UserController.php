@@ -86,7 +86,16 @@ class UserController extends Controller
     }
 
     public function viewBalance(Request $request){
-        $balance = User::select('balance')->where('id', $request['user_id'])->get();
+        $userId = $request['user_id'];
+
+        $totalTopUp = TopUpRequest::where([
+                'user_id' => $userId, 
+                'accepted_status' => 1
+            ])->sum('nominal');
+
+        $totalPayment = TripHistory::where('user_id', $userId)->sum('ticket_price');
+
+        $balance = $totalTopUp - $totalPayment;
 
         return response()->json($balance, 200);
     }
