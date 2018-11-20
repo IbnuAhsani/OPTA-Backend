@@ -19,4 +19,8 @@ class BusAdmin extends Model
     public function busses(){
         return $this->hasMany('App\Bus', 'bus_admin_id');
     }
+
+    public function withdrawRequests(){
+        return $this->hasMany('App\WithdrawRequest', 'bus_admin_id');
+    }
 }
