@@ -19,7 +19,6 @@ class CreateUserTable extends Migration
             $table->string('password', 255);
             $table->string('name', 50);
             $table->string('address', 150);
-            $table->bigInteger('balance')->default(0);
             $table->tinyInteger('role')->default(1);
             $table->rememberToken();
             $table->timestamps();

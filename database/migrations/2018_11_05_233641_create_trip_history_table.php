@@ -16,10 +16,10 @@ class CreateTripHistoryTable extends Migration
         Schema::create('trip_history', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('on_board_status')->default(1);
+            $table->bigInteger('ticket_price');
+            $table->bigInteger('on_board_time');
             $table->integer('user_id')->unsigned();
             $table->integer('bus_id')->unsigned();
-            $table->bigInteger('on_board_time');
-            $table->bigInteger('exit_time')->nullable();
             $table->timestamps();
         });
     }
