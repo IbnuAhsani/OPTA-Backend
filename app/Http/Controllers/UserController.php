@@ -29,26 +29,32 @@ class UserController extends Controller
         $userId = $request['user_id'];
         $busId = $request['bus_id'];
 
-        $user = User::find($userId);
         $bus = Bus::find($busId); 
 
-        if($user['balance'] < $bus['price']) {
+        $totalTopUp = TopUpRequest::where([
+                'user_id' => $userId, 
+                'accepted_status' => 1
+            ])->sum('nominal');
+
+        if($totalTopUp == 0) {
+            return response()->json([
+                'status' => false,
+                'error' => "Kamu belum mengisi saldo",
+                'price' => $bus['price']
+            ], 200);            
+        } else if($totalTopUp < $bus['price']) {
             return response()->json([
                 'status' => false,
                 'error' => "Saldo Kamu tidak cukup untuk membayar tiket Bus ini",
                 'price' => $bus['price']
             ], 200);
-        } else {
-            $newBalance = $user['balance'] - $bus['price'];
-    
-            $user->balance = $newBalance;
-            $user->save();
-
+        } else {    
             TripHistory::create(
                 array(
+                    'ticket_price' => $bus['price'],
+                    'on_board_time' => time(),
                     'user_id' => $userId,
                     'bus_id' => $busId,
-                    'on_board_time' => time()
                 )
             );
 
