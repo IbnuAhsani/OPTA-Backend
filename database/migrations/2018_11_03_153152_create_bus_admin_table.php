@@ -18,7 +18,6 @@ class CreateBusAdminTable extends Migration
             $table->string('email', 50);
             $table->string('password', 255);
             $table->string('company_name', 100);
-            $table->bigInteger('balance')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

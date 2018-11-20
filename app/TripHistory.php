@@ -9,6 +9,6 @@ class TripHistory extends Model
     protected $table = "trip_history";
 
     protected $fillable = [
-        'on_board_status', 'user_id', 'bus_id', 'on_board_time', 'exit_time'
+        'ticket_price', 'on_board_time', 'user_id', 'bus_id', 
     ];
 }
