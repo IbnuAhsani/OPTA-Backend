@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 /*
@@ -19,8 +20,8 @@ $factory->define(App\User::class, function (Faker $faker) {
         'password' => bcrypt('secret'), // secret
         'name' => $faker->name,
         'address' => $faker->address,
-        'balance' => rand(10000, 50000),
         'role' => rand(0, 1),
         'remember_token' => str_random(10),
+        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
     ];
 });
