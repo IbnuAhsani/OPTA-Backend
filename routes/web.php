@@ -27,7 +27,7 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/download_qr', 'MaskapaiController@download_qr')->name('download.qr')->middleware('maskapai');
     $router->post('/save_edit', 'MaskapaiController@save_edit')->middleware('maskapai');
     $router->get('/routes', 'MaskapaiController@view_routes')->middleware('maskapai');
-    $router->get('/income', 'MaskapaiController@view_income')->middleware('maskapai');
+    $router->get('/withdraw', 'MaskapaiController@view_withdraw')->middleware('maskapai');
 });
 
 $router->group(['prefix' => 'api'], function($router){

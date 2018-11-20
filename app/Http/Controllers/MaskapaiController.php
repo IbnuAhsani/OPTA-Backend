@@ -216,7 +216,7 @@ class MaskapaiController extends Controller {
         }
     }
 
-    public function view_income(Request $req) {
+    public function view_withdraw(Request $req) {
         $money_to_withdraw = 100000.00;
         return view('maskapai/income', [
             'money_to_withdraw' => $money_to_withdraw,

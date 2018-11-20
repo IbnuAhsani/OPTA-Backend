@@ -15,14 +15,14 @@ Data:
 
         <div style="padding: 16px; overflow: auto" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <div class="mdl-cell--12-col">
-                <h4>Withdraw history</h4>
+                <h4>Withdraw History</h4>
             </div>
             <div class="mdl-cell--12-col">
                 <table style="width: 100%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
-                    <th style="text-align: left">Date</th>
-                    <th style="text-align: center">Money</th>
+                        <th style="text-align: left">Date</th>
+                        <th style="text-align: center">Money</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +30,7 @@ Data:
                 </table>
             </div>
         </div>
+
         <!-- money to withdraw -->
         <div style="padding: 16px; overflow: auto" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <div class="mdl-cell--12-col">
