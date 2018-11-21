@@ -74,7 +74,6 @@ const setRouteList = (routes) => {
         iconDelete.appendChild(btnDeleteContent)
         btnDelete.appendChild(iconDelete)
         itemList.append(btnDelete)
-        
 
         if(idx > 0) {
             const btnUp = document.createElement("span")
@@ -107,7 +106,6 @@ const setRouteList = (routes) => {
             btnDown.appendChild(iconDown)
             itemList.append(btnDown)
         }
-
 
         routeList.appendChild(itemList)
     })

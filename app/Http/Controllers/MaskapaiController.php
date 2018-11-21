@@ -8,6 +8,7 @@ use App\TopUpRequest;
 use App\TripHistory;
 use Illuminate\Http\Request;
 use App\Repo\BusRepoImpl;
+use App\Repo\MoneyRepoImpl;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -22,9 +23,11 @@ class MaskapaiController extends Controller {
     const SESS_USER = "user";
 
     private $bus_repo;
+    private $money_repo;
 
     public function __construct() {
         $this->bus_repo = new BusRepoImpl();
+        $this->money_repo = new MoneyRepoImpl();
     }
 
     public function home() {
@@ -217,9 +220,30 @@ class MaskapaiController extends Controller {
     }
 
     public function view_withdraw(Request $req) {
-        $money_to_withdraw = 100000.00;
-        return view('maskapai/income', [
+        $maskapai = session('user');
+        $money_to_withdraw = $this->money_repo->maskapai_wd($maskapai['id']);
+
+        return view('maskapai/withdraw', [
+            'maskapai' => $maskapai,
             'money_to_withdraw' => $money_to_withdraw,
+        ]);
+    }
+
+    public function req_withdraw(Request $req) {
+        $maskapai = session('user');
+        // do withdraw
+        $this->money_repo->maskapai_do_wd($maskapai['id']);
+        $isSuccess = $this->money_repo->maskapai_wd($maskapai['id']);        
+
+        $money_to_withdraw = 0;
+        if($isSuccess) {
+            $money_to_withdraw = $this->money_repo->maskapai_wd($maskapai['id']);
+        }
+
+        // if success should redirect to /withdraw
+        return redirect()->route('withdraw', [
+            'maskapai' => $maskapai,
+            'money_to_withdraw' => $money_to_withdraw
         ]);
     }
 }

@@ -43,9 +43,16 @@ Data:
                 <form method="POST" action="/maskapai/withdraw">
                 {{ csrf_field() }}
 
+                <input type="hidden" name="maskapai_id" value={{ $maskapai['id'] }}>
+                @if($money_to_withdraw == 0)
+                <button disabled type="submit" style="color: #fff" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Withdraw
+                </button>
+                @else
                 <button type="submit" style="color: #fff" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     Withdraw
                 </button>
+                @endif
                 </form>
             </div>
         </div>
