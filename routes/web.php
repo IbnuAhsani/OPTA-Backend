@@ -30,6 +30,10 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/routes', 'MaskapaiController@view_routes');
 });
 
+$router->group(['prefix' => 'admin'], function($router){
+    $router->get('/dashboard', 'AdminController@dashboard')->name('admin_dashboard');
+});
+
 $router->group(['prefix' => 'api'], function($router){
 
     // Routes for Auth
