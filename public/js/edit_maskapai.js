@@ -28,7 +28,7 @@ const handleRouteDelete = (routeId) => {
     state.route = state.route
         .filter(el => el.id !== routeId)
         .map((el,i) => {
-            el.queue = i
+            el.queue = i + 1
             return el
         })
     console.log(state)
