@@ -25,6 +25,7 @@ const getRoutes = async () => {
 }
 
 const handleRouteDelete = (routeId) => {
+    // update routes to not included deleted route
     state.route = state.route
         .filter(el => el.id !== routeId)
         .map((el,i) => {
@@ -36,7 +37,7 @@ const handleRouteDelete = (routeId) => {
 }
 
 const swapRoute = (idxA, idxB) => {
-    // swap position aka index in array
+    // swap position a.k.a index in array
     const tempRoute = state.route[idxB]
     state.route[idxB] = state.route[idxA]
     state.route[idxA] = tempRoute
@@ -59,6 +60,7 @@ const setRouteList = (routes) => {
 
     const ellength = routes.length-1
 
+    // iterate the routes and set route element to the DOM
     routes.forEach((el, idx) => {
         const itemList = document.createElement("li")
         itemList.classList.add("mdl-list__item")
