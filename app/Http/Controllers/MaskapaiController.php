@@ -143,6 +143,7 @@ class MaskapaiController extends Controller {
         $routes = DB::table('route')
             ->select('id','queue','location_name')
             ->where('bus_id', $bus_id)
+            ->orderBy('queue')
             ->get();
         
         return response()->json($routes, 200);
@@ -242,10 +243,14 @@ class MaskapaiController extends Controller {
             $money_to_withdraw = $this->money_repo->maskapai_wd($maskapai['id']);
         }
 
+        $withdraw_hist = $this->money_repo->maskapai_wd_hist($maskapai['id']);
+
+
         // if success should redirect to /withdraw
         return redirect()->route('withdraw', [
             'maskapai' => $maskapai,
-            'money_to_withdraw' => $money_to_withdraw
+            'money_to_withdraw' => $money_to_withdraw,
+            'withdraw_history' => $withdraw_hist,
         ]);
     }
 }
