@@ -36,9 +36,15 @@ const handleRouteDelete = (routeId) => {
 }
 
 const swapRoute = (idxA, idxB) => {
-    const y = state.route[idxB]
+    // swap position aka index in array
+    const tempRoute = state.route[idxB]
     state.route[idxB] = state.route[idxA]
-    state.route[idxA] = y
+    state.route[idxA] = tempRoute
+
+    // swap the queue
+    const tempQueue = state.route[idxB].queue
+    state.route[idxB].queue = state.route[idxA].queue
+    state.route[idxA].queue = tempQueue
 
     setRouteList(state.route)
     console.log(state.route)
