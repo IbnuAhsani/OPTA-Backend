@@ -21,6 +21,7 @@ Data:
                 <table style="width: 70%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
+                        <th style="text-align: left">No</th>
                         <th style="text-align: left">Date</th>
                         <th style="text-align: center">Nominal</th>
                         <th style="text-align: center">Status</th>
@@ -28,8 +29,9 @@ Data:
                 </thead>
                 <tbody>
                     @if(count($withdraw_history) > 0)
-                        @foreach($withdraw_history as $wh)
+                        @foreach($withdraw_history as $key => $wh)
                             <tr>
+                                <td style="text-align: left">{{ $key + 1 }}</td>
                                 <td style="text-align: left">{{ $wh['created_at'] }}</td>
                                 <td style="text-align: center">{{ $wh['nominal'] }}</td>
                                 <td style="text-align: center">
