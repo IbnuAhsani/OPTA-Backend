@@ -18,14 +18,32 @@ Data:
                 <h4>Withdraw History</h4>
             </div>
             <div class="mdl-cell--12-col">
-                <table style="width: 100%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <table style="width: 70%; margin: auto" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                     <tr>
                         <th style="text-align: left">Date</th>
-                        <th style="text-align: center">Money</th>
+                        <th style="text-align: center">Nominal</th>
+                        <th style="text-align: center">Status</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if(count($withdraw_history) > 0)
+                        @foreach($withdraw_history as $wh)
+                            <tr>
+                                <td style="text-align: left">{{ $wh['created_at'] }}</td>
+                                <td style="text-align: center">{{ $wh['nominal'] }}</td>
+                                <td style="text-align: center">
+                                    @if($wh['accepted_status'] == 0)
+                                        Pending
+                                    @elseif($wh['accepted_status'] == 1)
+                                        Rejected
+                                    @else
+                                        Transfered
+                                    @endif
+                                </td>
+                            </tr>    
+                        @endforeach
+                    @endif
                 </tbody>
                 </table>
             </div>

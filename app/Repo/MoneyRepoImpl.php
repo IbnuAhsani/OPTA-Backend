@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repo\MoneyRepo;
 use App\BusAdmin;
 use App\WithdrawRequest;
+use App\Utils\DateTime;
 
 class MoneyRepoImpl implements MoneyRepo {
 
@@ -61,8 +62,8 @@ class MoneyRepoImpl implements MoneyRepo {
 
         try {
             // DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
-            $withdrawReq = DB::insert('insert into withdraw_request (nominal, bus_admin_id, accepted_status) values (?, ?, ?)', 
-                    [$nominal, $maskapai_id, 0]);
+            $withdrawReq = DB::insert('insert into withdraw_request (nominal, bus_admin_id, accepted_status, created_at) values (?, ?, ?, ?)', 
+                    [$nominal, $maskapai_id, 0, DateTime::now()]);
             
         } catch(\Exception $e) {
             dd($e);
@@ -73,6 +74,13 @@ class MoneyRepoImpl implements MoneyRepo {
 
     // get the history of maskapai withdraw
     public function maskapai_wd_hist(int $maskapai_id) {
+        $res = [];
+        try {
+            $res = WithdrawRequest::where('bus_admin_id', $maskapai_id)->get();
+        } catch(\Exception $e) {
+            dd($e);
+        }
 
+        return $res;
     }
 }

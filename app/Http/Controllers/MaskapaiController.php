@@ -222,9 +222,11 @@ class MaskapaiController extends Controller {
     public function view_withdraw(Request $req) {
         $maskapai = session('user');
         $money_to_withdraw = $this->money_repo->maskapai_wd($maskapai['id']);
+        $withdraw_hist = $this->money_repo->maskapai_wd_hist($maskapai['id']);
 
         return view('maskapai/withdraw', [
             'maskapai' => $maskapai,
+            'withdraw_history' => $withdraw_hist,
             'money_to_withdraw' => $money_to_withdraw,
         ]);
     }
