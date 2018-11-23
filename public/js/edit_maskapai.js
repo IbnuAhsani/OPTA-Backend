@@ -13,7 +13,6 @@ const getRoutes = async () => {
         })
         const res = await req.json()
         console.log(res)
-        // state.route = res.map(el => el.location_name)
         state.route = [...res]
         console.log("state", state)
 
