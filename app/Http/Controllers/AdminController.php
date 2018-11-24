@@ -18,13 +18,17 @@ class AdminController extends Controller
     public function dashboard(Request $req) {
         // get session
         $id = $req->session()->get("admin")['id'];
-        $top_up_request = $this->admin_repo->getTopUpRequest();
+        $top_up_requests = $this->admin_repo->getTopUpRequest();
+        $withdraw_requests = $this->admin_repo->getWithdrawRequest();
         
-        if(count($top_up_request) <= 0) {
+        if(count($top_up_requests) <= 0) {
             // set empty
             return view('admin/empty_dashboard');
         }
 
-        return view('admin/dashboard', ['top_ups' => $top_up_request]);    
+        return view('admin/dashboard', [
+            'top_up_requests' => $top_up_requests,
+            'withdraw_requests' => $withdraw_requests,
+        ]);    
     }
 }

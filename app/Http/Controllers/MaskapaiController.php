@@ -60,7 +60,7 @@ class MaskapaiController extends Controller {
                     ], 403);
                 }
                 
-                if ($admin[0]['role'] != 0) {
+                if ($admin['role'] != 0) {
                     return response()->json([
                         'error' => 'Anda tidak dapat masuk ke situs ini'
                     ], 403);
