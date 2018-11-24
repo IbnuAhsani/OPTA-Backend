@@ -29,7 +29,7 @@ class BusAdminSeeder extends Seeder
         ]);
         
         DB::table('bus_admin')->insert([
-            'email' => "bus.admin.1@gmail.com",
+            'email' => "bus.admin.3@gmail.com",
             'password' => bcrypt('secret'),
             'company_name' => "Explorer 100",
             'remember_token' => str_random(10),
