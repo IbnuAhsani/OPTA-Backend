@@ -69,7 +69,7 @@ class MaskapaiController extends Controller {
                 // save admin id in session  
                 $req->session()->put("admin", ['id' => $admin->id]);
 
-                return redirect()->route('admin_dashboard');
+                return redirect()->route('top_up');
             } else {
                         
                 if(!app('hash')->check($password, $bus_admin->password)) {

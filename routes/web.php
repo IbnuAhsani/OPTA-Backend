@@ -31,7 +31,8 @@ $router->group(['prefix' => 'maskapai'], function($router) {
 });
 
 $router->group(['prefix' => 'admin'], function($router){
-    $router->get('/dashboard', 'AdminController@dashboard')->name('admin_dashboard');
+    $router->get('/top_up', 'AdminController@topUp')->name('top_up');
+    $router->get('/withdraw', 'AdminController@withdraw')->name('withdraw');
 });
 
 $router->group(['prefix' => 'api'], function($router){
