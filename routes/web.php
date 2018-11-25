@@ -18,7 +18,7 @@ Route::get('/', function () {
 $router->group(['prefix' => 'maskapai'], function($router) {
     // the root is login
     $router->get('/', 'MaskapaiController@home')->name('home');
-    $router->post('/login', 'MaskapaiController@login')->name('login');
+    $router->post('/login', 'AuthController@login')->name('login');
     $router->get('/logout', 'MaskapaiController@logout')->name('logout');
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard')->middleware('maskapai');
     $router->post('/add_bus', 'MaskapaiController@add_bus')->middleware('maskapai');
@@ -29,6 +29,15 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/routes', 'MaskapaiController@view_routes')->middleware('maskapai');
     $router->get('/withdraw', 'MaskapaiController@view_withdraw')->middleware('maskapai')->name('withdraw');
     $router->post('/withdraw', 'MaskapaiController@req_withdraw')->middleware('maskapai');
+});
+
+$router->group(['prefix' => 'admin'], function($router){
+    $router->get('/top_up', 'AdminController@topUp')->name('top_up');
+    $router->get('/top_up/accept', 'AdminController@acceptTopUp');
+    $router->get('/top_up/decline', 'AdminController@declineTopUp');
+    $router->get('/withdraw', 'AdminController@withdraw')->name('withdraw');
+    $router->get('/withdraw/accept', 'AdminController@acceptWithdraw');
+    $router->get('/withdraw/decline', 'AdminController@declineWithdraw');
 });
 
 $router->group(['prefix' => 'api'], function($router){
@@ -46,12 +55,4 @@ $router->group(['prefix' => 'api'], function($router){
     
     // Routes for Bus
     $router->get('route/', 'BusController@viewRoutes');
-
-    // Routes for Bus Admin
-    $router->post('bus-admin/register', 'BusAdminController@register');
-    $router->post('bus-admin/bus', 'BusAdminController@viewOneBus');
-    $router->post('bus-admin/bus/all', 'BusAdminController@viewAllBusses');
-    $router->post('bus-admin/bus/add', 'BusAdminController@addBus');
-    $router->post('bus-admin/bus/delete', 'BusAdminController@deleteBus');
-    $router->post('bus-admin/bus/update', 'BusAdminController@updateBus');
 });

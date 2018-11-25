@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'password' => bcrypt('secret'), // secret
         'name' => $faker->name,
         'address' => $faker->address,
-        'role' => rand(0, 1),
+        'role' => 1,
         'remember_token' => str_random(10),
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
     ];

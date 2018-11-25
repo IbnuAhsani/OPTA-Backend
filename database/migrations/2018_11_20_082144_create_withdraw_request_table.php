@@ -16,7 +16,7 @@ class CreateWithdrawRequestTable extends Migration
         Schema::create('withdraw_request', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('nominal');
-            $table->boolean('accepted_status');
+            $table->boolean('accepted_status')->default(0);
             $table->integer('bus_admin_id')->unsigned();
             $table->timestamps();
         });

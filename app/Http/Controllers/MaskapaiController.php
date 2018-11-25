@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\BusAdmin;
 use App\Bus;
 use App\TopUpRequest;
@@ -36,38 +37,6 @@ class MaskapaiController extends Controller {
         }
 
         return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
-    }
-
-    public function login(Request $req) {
-        $email = $req->input('email');
-        $password = $req->input('password');
-
-        if($email == "" || $password == "") {
-            // set error
-            return response()->json([
-                'error' => 'Email atau password tidak boleh kosong'
-            ], 403);
-        }
-
-        $bus_admin = BusAdmin::where('email', $email)->first();
-
-        if($bus_admin == null) {
-            // set error
-            return response()->json([
-                'error' => 'Akun tidak terdaftar'
-            ], 403);
-        }
-
-        if(!app('hash')->check($password, $bus_admin->password)) {
-            return response()->json([
-                'error' => 'Email atau katasandi salah, mohon dicoba lagi'
-            ], 403);
-        }
-
-        // save user id in session  
-        $req->session()->put("user", ['id' => $bus_admin->id]);
-
-        return redirect()->route('dashboard');
     }
 
     public function logout(Request $req) {
