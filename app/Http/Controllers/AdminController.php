@@ -24,7 +24,7 @@ class AdminController extends Controller
         
         if(count($top_up_requests) <= 0) {
             // set empty
-            return view('admin/empty_dashboard');
+            return view('admin/empty_top_up');
         }
 
         return view('admin/topup', ['top_up_requests' => $top_up_requests]);    
@@ -46,7 +46,7 @@ class AdminController extends Controller
         }catch(Exception $e){
             dd($e);
         }
-        
+
         return redirect()->route('top_up');
     }
     
@@ -57,7 +57,7 @@ class AdminController extends Controller
         
         if(count($withdraw_requests) <= 0) {
             // set empty
-            return view('admin/empty_dashboard');
+            return view('admin/empty_withdraw');
         }
 
         return view('admin/withdraw', ['withdraw_requests' => $withdraw_requests]);    
