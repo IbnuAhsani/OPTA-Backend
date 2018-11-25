@@ -64,12 +64,12 @@ Data needed:
                   <td style="text-align: center;">{{ date("d-m-Y", $top_up_request['request_time']) }}</td>
                   <td style="text-align: center;">{{ date("d-m-Y", $top_up_request['expire_time']) }}</td>
                   <td style="text-align: center">
-                    <a href="/admin/accept?id={{ $top_up_request['id'] }}">
+                    <a href="/admin/top_up/accept?id={{ $top_up_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="accept" value={{ $top_up_request['id'] }}>
                         <i class="material-icons">accept</i>
                       </button> 
                     </a> 
-                    <a href="/admin/decline?id={{ $top_up_request['id'] }}">
+                    <a href="/admin/top_up/decline?id={{ $top_up_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="decline" value={{ $top_up_request['id'] }}>
                         <i class="material-icons">decline_forever</i>
                       </button>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\TopUpRequest;
+use App\WithdrawRequest;
 use Illuminate\Http\Request;
 use App\Repo\AdminRepoImpl;
 
@@ -26,6 +28,18 @@ class AdminController extends Controller
         }
 
         return view('admin/topup', ['top_up_requests' => $top_up_requests]);    
+    }
+
+    public function acceptTopUp(Request $req){
+        TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+
+        return redirect()->route('top_up');
+    }
+    
+    public function declineTopUp(Request $req){
+        TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+
+        return redirect()->route('top_up');
     }
     
     public function withdraw(Request $req) {
