@@ -20,6 +20,8 @@ $router->group(['prefix' => 'maskapai'], function($router) {
     $router->get('/', 'MaskapaiController@home')->name('home');
     $router->post('/login', 'AuthController@login')->name('login');
     $router->get('/logout', 'MaskapaiController@logout')->name('logout');
+    $router->get('/register', 'MaskapaiController@view_register')->name('view_register');    
+    $router->post('/do_register', 'MaskapaiController@register')->name('register');
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard')->middleware('maskapai');
     $router->post('/add_bus', 'MaskapaiController@add_bus')->middleware('maskapai');
     $router->get('/delete', 'MaskapaiController@delete_bus')->middleware('maskapai');

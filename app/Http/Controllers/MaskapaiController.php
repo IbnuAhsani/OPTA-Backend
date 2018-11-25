@@ -32,13 +32,31 @@ class MaskapaiController extends Controller {
     }
 
     public function home() {
-        if(session("user") !== null) {
-            return redirect()->route('dashboard');
-        }
-
-        return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
+        return session("user") !== null
+            ? redirect()->route('dashboard')
+            : view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
     }
 
+    public function register(Request $request){
+        $request['remember_token'] = str_random(60);
+        $request['password'] = app('hash')->make($request['password']);
+        try {
+            BusAdmin::create($request->all());
+            return redirect()->route('home');
+        } catch(\Exception $e) {
+            // should be logged not dd-ed
+            dd($e);
+        }
+
+        return redirect()->route('view_register');
+    }
+
+    public function view_register(Request $request) {
+        return session('user') !== null
+            ? redirect()->route('dashboard')
+            : view('maskapai/register', ['title' => $_ENV['APP_NAME']]);
+    }
+  
     public function logout(Request $req) {
         $req->session()->forget('user');
         return redirect()->route('home');
