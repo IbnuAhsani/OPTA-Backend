@@ -60,12 +60,12 @@ Data needed:
                   <td style="text-align: center"><small>Rp</small>{{ number_format($withdraw_request['nominal'], 2, ",", ".") }}</td>
                   <td style="text-align: center;">{{ date("d-m-Y", strtotime($withdraw_request['created_at'])) }}</td>
                   <td style="text-align: center">
-                    <a href="/admin/accept?id={{ $withdraw_request['id'] }}">
+                    <a href="/admin/withdraw/accept?id={{ $withdraw_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="accept" value={{ $withdraw_request['id'] }}>
                         <i class="material-icons">accept</i>
                       </button> 
                     </a> 
-                    <a href="/admin/decline?id={{ $withdraw_request['id'] }}">
+                    <a href="/admin/withdraw/decline?id={{ $withdraw_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="decline" value={{ $withdraw_request['id'] }}>
                         <i class="material-icons">decline_forever</i>
                       </button>

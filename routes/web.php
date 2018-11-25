@@ -35,6 +35,8 @@ $router->group(['prefix' => 'admin'], function($router){
     $router->get('/top_up/accept', 'AdminController@acceptTopUp');
     $router->get('/top_up/decline', 'AdminController@declineTopUp');
     $router->get('/withdraw', 'AdminController@withdraw')->name('withdraw');
+    $router->get('/withdraw/accept', 'AdminController@acceptWithdraw');
+    $router->get('/withdraw/decline', 'AdminController@declineWithdraw');
 });
 
 $router->group(['prefix' => 'api'], function($router){

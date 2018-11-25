@@ -54,4 +54,16 @@ class AdminController extends Controller
 
         return view('admin/withdraw', ['withdraw_requests' => $withdraw_requests]);    
     }
+
+    public function acceptWithdraw(Request $req){
+        WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+
+        return redirect()->route('withdraw');
+    }
+
+    public function declineWithdraw(Request $req){
+        WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+
+        return redirect()->route('withdraw');
+    }
 }
