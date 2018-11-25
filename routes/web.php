@@ -18,7 +18,7 @@ Route::get('/', function () {
 $router->group(['prefix' => 'maskapai'], function($router) {
     // the root is login
     $router->get('/', 'MaskapaiController@home')->name('home');
-    $router->post('/login', 'MaskapaiController@login')->name('login');
+    $router->post('/login', 'AuthController@login')->name('login');
     $router->get('/dashboard', 'MaskapaiController@dashboard')->name('dashboard')->middleware('maskapai');
     $router->post('/add_bus', 'MaskapaiController@add_bus')->middleware('maskapai');
     $router->get('/delete', 'MaskapaiController@delete_bus')->middleware('maskapai');

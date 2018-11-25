@@ -32,60 +32,6 @@ class MaskapaiController extends Controller {
         return view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
     }
 
-    public function login(Request $req) {
-        $email = $req->input('email');
-        $password = $req->input('password');
-
-        if($email == "" || $password == "") {
-            // set error
-            return response()->json([
-                'error' => 'Email atau password tidak boleh kosong'
-            ], 403);
-        }
-
-        $bus_admin = BusAdmin::where('email', $email)->first();
-        $admin = User::where('email', $email)->first();
-
-        if($bus_admin == null && $admin == null) {
-            // set error
-            return response()->json([
-                'error' => 'Akun tidak terdaftar'
-            ], 403);
-        } else {
-            if ($bus_admin == null) {
-
-                if(!app('hash')->check($password, $admin->password)) {
-                    return response()->json([
-                        'error' => 'Email atau katasandi salah, mohon dicoba lagi'
-                    ], 403);
-                }
-                
-                if ($admin['role'] != 0) {
-                    return response()->json([
-                        'error' => 'Anda tidak dapat masuk ke situs ini'
-                    ], 403);
-                }
-
-                // save admin id in session  
-                $req->session()->put("admin", ['id' => $admin->id]);
-
-                return redirect()->route('top_up');
-            } else {
-                        
-                if(!app('hash')->check($password, $bus_admin->password)) {
-                    return response()->json([
-                        'error' => 'Email atau katasandi salah, mohon dicoba lagi'
-                    ], 403);
-                }
-
-                // save user id in session  
-                $req->session()->put("user", ['id' => $bus_admin->id]);
-
-                return redirect()->route('dashboard');
-            }
-        }
-    }
-
     public function dashboard(Request $req) {
         // get session
         $id = $req->session()->get("user")['id'];
