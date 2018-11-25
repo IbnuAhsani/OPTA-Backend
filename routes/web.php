@@ -54,12 +54,4 @@ $router->group(['prefix' => 'api'], function($router){
     
     // Routes for Bus
     $router->get('route/', 'BusController@viewRoutes');
-
-    // Routes for Bus Admin
-    $router->post('bus-admin/register', 'BusAdminController@register');
-    $router->post('bus-admin/bus', 'BusAdminController@viewOneBus');
-    $router->post('bus-admin/bus/all', 'BusAdminController@viewAllBusses');
-    $router->post('bus-admin/bus/add', 'BusAdminController@addBus');
-    $router->post('bus-admin/bus/delete', 'BusAdminController@deleteBus');
-    $router->post('bus-admin/bus/update', 'BusAdminController@updateBus');
 });
