@@ -31,14 +31,22 @@ class AdminController extends Controller
     }
 
     public function acceptTopUp(Request $req){
-        TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+        try{
+            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+        }catch(Exception $e){
+            dd($e);
+        }
 
         return redirect()->route('top_up');
     }
     
     public function declineTopUp(Request $req){
-        TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
-
+        try{
+            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+        }catch(Exception $e){
+            dd($e);
+        }
+        
         return redirect()->route('top_up');
     }
     
@@ -56,13 +64,21 @@ class AdminController extends Controller
     }
 
     public function acceptWithdraw(Request $req){
-        WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+        try{
+            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+        } catch(Exception $e){
+            dd($e);
+        }
 
         return redirect()->route('withdraw');
     }
 
     public function declineWithdraw(Request $req){
-        WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+        try{
+            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+        }catch(Exception $e){
+            dd($e);
+        }
 
         return redirect()->route('withdraw');
     }
