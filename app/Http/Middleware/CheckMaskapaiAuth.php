@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Repo\Role;
 
 class CheckMaskapaiAuth
 {
@@ -19,7 +20,6 @@ class CheckMaskapaiAuth
             return redirect()->route('home');
         } 
 
-        return $next($request);
-        // return session("user")["id"] !== 0 ? redirect("/") : $next($request);
+        return session("user")["role"] !== Role::$BUS_ADMIN ? redirect("/") : $next($request);
     }
 }
