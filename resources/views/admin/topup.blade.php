@@ -27,17 +27,11 @@ Data needed:
     text-align: left !important;
   }
 
-  #edit:hover {
+  #accept:hover {
     color: #4caf50;
   }
-  #download_qr:hover {
-    color: #03a9f4;
-  }
-  #delete:hover {
+  #decline:hover {
     color: #f44336;
-  }
-  #add:hover {
-    color: #2196f3;
   }
 </style>
 @endsection

@@ -13,7 +13,7 @@
     <title>{{ $_ENV["APP_NAME"] }}</title>
 
     <!-- MDL -->
-    <link rel="stylesheet" href="{{ asset('mdl/material.css') }}">
+    <link rel="preload" as="style" href="{{ asset('mdl/material.css') }}">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('custom-admin.css') }}">
