@@ -17,6 +17,17 @@ class AdminController extends Controller
         $this->admin_repo = new AdminRepoImpl();
     }
 
+    public function home(){
+        return session("admin") != null 
+            ? redirect()->route('top_up')
+            : view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
+    }
+
+    public function logout(Request $req) {
+        $req->session()->forget('admin');
+        return redirect()->route('home');
+    }
+
     public function topUp(Request $req) {
         // get session
         $id = $req->session()->get("admin")['id'];
