@@ -15,7 +15,7 @@ class CreateBusAdminTable extends Migration
     {
         Schema::create('bus_admin', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email', 50);
+            $table->string('email', 50)->unique();
             $table->string('password', 255);
             $table->string('company_name', 100);
             $table->rememberToken();
