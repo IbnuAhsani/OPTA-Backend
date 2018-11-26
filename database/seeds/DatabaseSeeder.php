@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             BusTableSeeder::class,
             RouteTableSeeder::class,
-            BusAdminSeeder::class
+            BusAdminSeeder::class,
+            TopUpRequestTableSeeder::class,
+            WithdrawRequestTableSeeder::class
         ]);
     }
 }

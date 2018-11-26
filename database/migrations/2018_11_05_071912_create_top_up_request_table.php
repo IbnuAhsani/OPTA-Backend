@@ -16,7 +16,7 @@ class CreateTopUpRequestTable extends Migration
         Schema::create('top_up_request', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('accepted_status')->default(0);
-            $table->integer('unique_code')->unique();
+            $table->integer('unique_code');
             $table->integer('nominal');
             $table->bigInteger('request_time');
             $table->bigInteger('expire_time');

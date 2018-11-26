@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 $factory->define(App\Bus::class, function (Faker $faker) {
@@ -7,5 +8,6 @@ $factory->define(App\Bus::class, function (Faker $faker) {
         'bus_number' => rand(1, 10),
         'price' => rand(4000, 8000),
         'bus_admin_id' => rand(1, 3),
+        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
     ];
 });

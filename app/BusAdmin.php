@@ -9,7 +9,7 @@ class BusAdmin extends Model
     protected $table = "bus_admin";
 
     protected $fillable = [
-        'email', 'password', 'company_name', 'balance', 'remember_token'
+        'email', 'password', 'company_name', 'remember_token'
     ];
 
     protected $hidden = [
@@ -18,5 +18,9 @@ class BusAdmin extends Model
 
     public function busses(){
         return $this->hasMany('App\Bus', 'bus_admin_id');
+    }
+
+    public function withdrawRequests(){
+        return $this->hasMany('App\WithdrawRequest', 'bus_admin_id');
     }
 }

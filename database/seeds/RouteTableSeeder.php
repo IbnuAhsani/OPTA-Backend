@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 1,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 1
+            'bus_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -25,7 +27,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 2,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 1
+            'bus_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -33,7 +36,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 3,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 1
+            'bus_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -41,7 +45,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 4,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 1
+            'bus_id' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -49,7 +54,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 1,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 2
+            'bus_id' => 2,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -57,7 +63,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 2,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 2
+            'bus_id' => 2,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -65,7 +72,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 3,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 2
+            'bus_id' => 2,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -73,7 +81,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 1,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -81,7 +90,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 2,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -89,7 +99,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 3,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -97,7 +108,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 4,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -105,7 +117,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 5,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('route')->insert([
@@ -113,7 +126,8 @@ class RouteTableSeeder extends Seeder
             'queue' => 6,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         /* DB::table('route')->insert([
@@ -121,7 +135,8 @@ class RouteTableSeeder extends Seeder
             'queue' => ,
             'latitude' => mt_rand()/mt_getrandmax(),
             'longitude' => mt_rand()/mt_getrandmax(),
-            'bus_id' => 3
+            'bus_id' => 3,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]); */
     }
 }

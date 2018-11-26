@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class BusAdminSeeder extends Seeder
@@ -15,24 +16,24 @@ class BusAdminSeeder extends Seeder
             'email' => "bus.admin.1@gmail.com",
             'password' => bcrypt('secret'),
             'company_name' => "Primajasa",
-            'balance' => 10000,
-            'remember_token' => str_random(10)
+            'remember_token' => str_random(10),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('bus_admin')->insert([
             'email' => "bus.admin.2@gmail.com",
             'password' => bcrypt('secret'),
             'company_name' => "Damri",
-            'balance' => 5000,
-            'remember_token' => str_random(10)
+            'remember_token' => str_random(10),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
         
         DB::table('bus_admin')->insert([
-            'email' => "bus.admin.1@gmail.com",
+            'email' => "bus.admin.3@gmail.com",
             'password' => bcrypt('secret'),
             'company_name' => "Explorer 100",
-            'balance' => 1000,
-            'remember_token' => str_random(10)
+            'remember_token' => str_random(10),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
 }
