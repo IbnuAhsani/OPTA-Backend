@@ -35,7 +35,7 @@ class AdminController extends Controller
         
         if(count($top_up_requests) <= 0) {
             // set empty
-            return view('admin/empty_view', ['message' => "Top Up"]);
+            return view('admin/empty_view', ['message' => "Top Up Request"]);
         }
 
         return view('admin/topup', ['top_up_requests' => $top_up_requests]);    
@@ -61,14 +61,12 @@ class AdminController extends Controller
         return redirect()->route('top_up');
     }
     
-    public function withdraw(Request $req) {
-        // get session
-        $id = $req->session()->get("admin")['id'];
+    public function withdraw() {
         $withdraw_requests = $this->admin_repo->getWithdrawRequest();
         
         if(count($withdraw_requests) <= 0) {
             // set empty
-            return view('admin/empty_view', ['message' => "Withdraw"]);
+            return view('admin/empty_view', ['message' => "Withdraw Request"]);
         }
 
         return view('admin/withdraw', ['withdraw_requests' => $withdraw_requests]);    
@@ -92,5 +90,15 @@ class AdminController extends Controller
         }
 
         return redirect()->route('withdraw');
+    }
+
+    public function manifesto(){
+        $manifesto_datas = $this->admin_repo->getManifestoData();
+
+        if ($manifesto_datas <= 0) {
+            return view('admin/empty_view', ['message' => "data Manifesto"]);
+        }
+
+        return view('admin/manifesto', ['manifesto_datas' => $manifesto_datas]);
     }
 }

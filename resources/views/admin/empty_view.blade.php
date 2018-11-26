@@ -9,7 +9,7 @@
         <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <!-- empty icons -->
             <div style="margin: auto" class="mdl-cell--12-col">
-              <h4 style="text-align: center">Belum ada {{ $message }} Request baru</h4>
+              <h4 style="text-align: center">Belum ada {{ $message }} baru</h4>
             </div>
         </div>
       </div>

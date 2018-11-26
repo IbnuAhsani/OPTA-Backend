@@ -4,6 +4,7 @@ namespace App\Repo;
 
 use App\TopUpRequest;
 use App\WithdrawRequest;
+use App\TripHistory;
 use App\Repo\AdminRepo;
 
 class AdminRepoImpl implements AdminRepo{
@@ -59,6 +60,28 @@ class AdminRepoImpl implements AdminRepo{
         }
 
         return $withdraw_request_map;
+    }
+
+    public function getManifestoData(){
+        try {
+            $manifesto = TripHistory::all();
+        } catch (\Exception $e) {
+            return [];
+        }
+
+        $manifesto_map = [];
+
+        foreach ($manifesto as $key => $val) {
+            $manifesto_map[$key]['id'] = $val->id;
+            $manifesto_map[$key]['ticket_price'] = $val->ticket_price;
+            $manifesto_map[$key]['on_board_time'] = $val->on_board_time;
+            $manifesto_map[$key]['created_at'] = $val->created_at;
+            $manifesto_map[$key]['updated_at'] = $val->updated_at;
+            $manifesto_map[$key]['user_id'] = $val->user_id;                                                            
+            $manifesto_map[$key]['bus_id'] = $val->bus_id;                                                            
+        }
+
+        return $manifesto_map;  
     }
 }
 
