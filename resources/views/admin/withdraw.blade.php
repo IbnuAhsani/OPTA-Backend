@@ -62,12 +62,12 @@ Data needed:
                   <td style="text-align: center">
                     <a href="/admin/withdraw/accept?id={{ $withdraw_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="accept" value={{ $withdraw_request['id'] }}>
-                        <i class="material-icons">accept</i>
+                        <i class="material-icons">done</i>
                       </button> 
                     </a> 
                     <a href="/admin/withdraw/decline?id={{ $withdraw_request['id'] }}">
                       <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="decline" value={{ $withdraw_request['id'] }}>
-                        <i class="material-icons">decline_forever</i>
+                        <i class="material-icons">delete_forever</i>
                       </button>
                     </a>         
                   </td>
