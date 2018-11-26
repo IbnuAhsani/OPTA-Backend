@@ -15,7 +15,6 @@ class CreateTripHistoryTable extends Migration
     {
         Schema::create('trip_history', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('on_board_status')->default(1);
             $table->bigInteger('ticket_price')->default(0);
             $table->bigInteger('on_board_time');
             $table->integer('user_id')->unsigned();
