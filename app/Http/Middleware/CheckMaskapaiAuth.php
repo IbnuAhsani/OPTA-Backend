@@ -18,7 +18,8 @@ class CheckMaskapaiAuth
         if(session("user") == null) {
             return redirect()->route('home');
         } 
-        
-        return session("user")["id"] !== 1 ? redirect("/") : $next($request);
+
+        return $next($request);
+        // return session("user")["id"] !== 0 ? redirect("/") : $next($request);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repo\Role;
 use App\User;
 use App\BusAdmin;
 use Illuminate\Http\Request;
@@ -29,16 +30,16 @@ class AuthController extends Controller
             ], 403);
         } 
 
-        // if it's admin
         if($user == NULL){
             if(!app('hash')->check($password, $bus_admin->password)) {
                 return response()->json([
                     'error' => 'Email atau katasandi salah, mohon dicoba lagi'
                 ], 403);
             }
-
-            // save user id in session  
-            $req->session()->put("user", ['id' => $bus_admin->id]);
+            
+            // if it's bus admin
+            // save user id & role in session  
+            $req->session()->put("user", ['id' => $bus_admin->id, 'role' => Role::$BUS_ADMIN]);
 
             return redirect()->route('dashboard');
         } 
@@ -53,7 +54,7 @@ class AuthController extends Controller
         // this must be the admin
         if ($user->role != 1) {
             // save admin id in session  
-            $req->session()->put("admin", ['id' => $user->id]);
+            $req->session()->put("admin", ['id' => $user->id, 'role' => Role::$ADMIN]);
 
             return redirect()->route('top_up');
         } 
