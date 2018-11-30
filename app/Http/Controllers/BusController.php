@@ -12,9 +12,9 @@ class BusController extends Controller
         $routes = [];
 
         for($i = 0; $i < count($busses); $i++){
-
             $route = Bus::find($busses[$i]['id'])->routes()->orderBy('queue')->get();
-            
+            if(count($route) <= 0) continue;
+
             $startLoc = $route[0]['location_name'];
             $endLoc = $route[count($route)-1]['location_name'];
 
@@ -31,17 +31,8 @@ class BusController extends Controller
         return response()->json($routes, 200);
     }
 
-    /* public function viewOneRoute($bus_id){
-        $routes = Bus::find($bus_id)->routes()->orderBy('queue')->get();
-
-        $startLoc = $routes[0]['location_name'];
-        $endLoc = $routes[count($routes)-1]['location_name'];
-
-        return response()->json([
-            'status_code' => 200,
-            'start_loc' => $startLoc,
-            'end_loc' => $endLoc,
-            'detail' => $routes
-        ]);
-    } */
+    public function busPrice($bus_id) {
+        $bus = Bus::find($bus_id);
+        return response()->json( $bus['price'], 200);
+    }
 }
