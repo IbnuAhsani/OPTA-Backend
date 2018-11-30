@@ -29,6 +29,10 @@ class BusController extends Controller
         }
 
         return response()->json($routes, 200);
+    }
 
+    public function busPrice($bus_id) {
+        $bus = Bus::find($bus_id);
+        return response()->json( $bus['price'], 200);
     }
 }

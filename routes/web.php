@@ -57,4 +57,5 @@ $router->group(['prefix' => 'api'], function($router){
     
     // Routes for Bus
     $router->get('route/', 'BusController@viewRoutes');
+    $router->get('bus/{bus_id}/price', 'BusController@busPrice');
 });
