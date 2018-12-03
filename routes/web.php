@@ -43,6 +43,7 @@ $router->group(['prefix' => 'admin'], function($router){
     $router->get('/withdraw/accept', 'AdminController@acceptWithdraw');
     $router->get('/withdraw/decline', 'AdminController@declineWithdraw');
     $router->get('/manifesto', 'AdminController@manifesto');
+    $router->get('/error', 'AdminController@error')->name('error');
 });
 
 $router->group(['prefix' => 'api'], function($router){

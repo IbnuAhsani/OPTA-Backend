@@ -45,7 +45,8 @@ class AdminController extends Controller
         try{
             TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
         }catch(Exception $e){
-            dd($e);
+            report($e);
+            return redirect()->route('error');
         }
 
         return redirect()->route('top_up');
@@ -55,7 +56,8 @@ class AdminController extends Controller
         try{
             TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
         }catch(Exception $e){
-            dd($e);
+            report($e);
+            return redirect()->route('error');
         }
 
         return redirect()->route('top_up');
@@ -76,7 +78,8 @@ class AdminController extends Controller
         try{
             WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
         } catch(Exception $e){
-            dd($e);
+            report($e);
+            return redirect()->route('error');
         }
 
         return redirect()->route('withdraw');
@@ -86,7 +89,8 @@ class AdminController extends Controller
         try{
             WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
         }catch(Exception $e){
-            dd($e);
+            report($e);
+            return redirect()->route('error');
         }
 
         return redirect()->route('withdraw');
@@ -100,5 +104,9 @@ class AdminController extends Controller
         }
 
         return view('admin/manifesto', ['manifesto_datas' => $manifesto_datas]);
+    }
+
+    public function error(){
+        return view('admin/error');
     }
 }
