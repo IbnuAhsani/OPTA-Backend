@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repo\Transaction;
 use App\TopUpRequest;
 use App\WithdrawRequest;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class AdminController extends Controller
 
     public function acceptTopUp(Request $req){
         try{
-            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => Transaction::$ACCEPTED]);
         }catch(Exception $e){
             report($e);
             return redirect()->route('error');
@@ -54,7 +55,7 @@ class AdminController extends Controller
     
     public function declineTopUp(Request $req){
         try{
-            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+            TopUpRequest::where('id', $req['id'])->update(['accepted_status' => Transaction::$DECLINED]);
         }catch(Exception $e){
             report($e);
             return redirect()->route('error');
@@ -76,7 +77,7 @@ class AdminController extends Controller
 
     public function acceptWithdraw(Request $req){
         try{
-            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 1]);
+            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => Transaction::$ACCEPTED]);
         } catch(Exception $e){
             report($e);
             return redirect()->route('error');
@@ -87,7 +88,7 @@ class AdminController extends Controller
 
     public function declineWithdraw(Request $req){
         try{
-            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => 2]);
+            WithdrawRequest::where('id', $req['id'])->update(['accepted_status' => Transaction::$DECLINED]);
         }catch(Exception $e){
             report($e);
             return redirect()->route('error');

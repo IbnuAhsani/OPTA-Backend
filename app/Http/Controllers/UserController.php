@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repo\Transaction;
 use App\User;
 use App\Bus;
 use App\TopUpRequest;
@@ -33,7 +34,7 @@ class UserController extends Controller
 
         $totalTopUp = TopUpRequest::where([
                 'user_id' => $userId, 
-                'accepted_status' => 1
+                'accepted_status' => Transaction::$ACCEPTED
             ])->sum('nominal');
 
         if($totalTopUp == 0) {
@@ -90,7 +91,7 @@ class UserController extends Controller
 
         $totalTopUp = TopUpRequest::where([
                 'user_id' => $userId, 
-                'accepted_status' => 1
+                'accepted_status' => Transaction::$ACCEPTED
             ])->sum('nominal');
 
         $totalPayment = TripHistory::where('user_id', $userId)->sum('ticket_price');

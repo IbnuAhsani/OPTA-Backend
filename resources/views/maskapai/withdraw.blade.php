@@ -35,9 +35,9 @@ Data:
                                 <td style="text-align: left">{{ $wh['created_at'] }}</td>
                                 <td style="text-align: center">{{ $wh['nominal'] }}</td>
                                 <td style="text-align: center">
-                                    @if($wh['accepted_status'] == 0)
+                                    @if($wh['accepted_status'] == Transaction::$PENDING)
                                         Pending
-                                    @elseif($wh['accepted_status'] == 1)
+                                    @elseif($wh['accepted_status'] == Transaction::$DECLINED)
                                         Rejected
                                     @else
                                         Transfered

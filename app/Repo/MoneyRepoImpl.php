@@ -4,6 +4,7 @@ namespace App\Repo;
 
 use Illuminate\Support\Facades\DB;
 use App\Repo\MoneyRepo;
+use App\Repo\Transaction;
 use App\BusAdmin;
 use App\WithdrawRequest;
 use App\Utils\DateTime;
@@ -34,6 +35,10 @@ class MoneyRepoImpl implements MoneyRepo {
 
             $withdrawed = DB::table("withdraw_request")
                     ->where("bus_admin_id", $maskapai_id)
+                    ->where(function($query){
+                        $query->where("accepted_status", Transaction::$PENDING)
+                        ->orWhere("accepted_status", Transaction::$ACCEPTED);
+                    })
                     ->sum("nominal");
 
             DB::commit();
@@ -63,7 +68,7 @@ class MoneyRepoImpl implements MoneyRepo {
         try {
             // DB::insert('insert into users (id, name) values (?, ?)', [1, 'Dayle']);
             $withdrawReq = DB::insert('insert into withdraw_request (nominal, bus_admin_id, accepted_status, created_at) values (?, ?, ?, ?)', 
-                    [$nominal, $maskapai_id, 0, DateTime::now()]);
+                    [$nominal, $maskapai_id, Transaction::$PENDING, DateTime::now()]);
             
         } catch(\Exception $e) {
             dd($e);

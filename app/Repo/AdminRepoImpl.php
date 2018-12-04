@@ -2,6 +2,7 @@
 
 namespace App\Repo;
 
+use App\Repo\Transaction;
 use App\TopUpRequest;
 use App\WithdrawRequest;
 use App\TripHistory;
@@ -11,7 +12,7 @@ class AdminRepoImpl implements AdminRepo{
 
     public function getTopUpRequest(){
         try{
-            $top_up_request = TopUpRequest::where('accepted_status', 0)->get();
+            $top_up_request = TopUpRequest::where('accepted_status', Transaction::$PENDING)->get();
         } catch(\Exception $e){
             return [];
         }
@@ -39,7 +40,7 @@ class AdminRepoImpl implements AdminRepo{
 
     public function getWithdrawRequest(){        
         try{
-            $withdraw_request = WithdrawRequest::where('accepted_status', 0)->get();
+            $withdraw_request = WithdrawRequest::where('accepted_status', Transaction::$PENDING)->get();
         } catch(\Exception $e){
             return [];
         }
@@ -84,5 +85,3 @@ class AdminRepoImpl implements AdminRepo{
         return $manifesto_map;  
     }
 }
-
-?>
