@@ -41,7 +41,7 @@
                 <h2 class="mdl-card__title-text">Login</h2>
             </div>
             <div>
-            <form method="POST" action="/maskapai/login">
+            <form method="POST" action="/login">
                 {{ csrf_field() }}
                 <div class="home-form">
                     <div class="mdl-textfield mdl-js-textfield">

@@ -1,7 +1,7 @@
 @extends('maskapai.template')
 
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-@include("maskapai.navbar")
+@include("admin.navbar")
 @include("admin.sidebar")
 @section('main')
     <main class="mdl-layout__content mdl-color--grey-100">

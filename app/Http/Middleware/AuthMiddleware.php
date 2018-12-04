@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Repo\Role;
 
-class CheckMaskapaiAuth
+class AuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,10 @@ class CheckMaskapaiAuth
      */
     public function handle($request, Closure $next)
     {
-        if(!session("maskapai")) {
-            return redirect()->route('root');
-        } 
 
-        return  $next($request);
+        if(session("admin") !== null) return redirect()->route("admin_top_up");
+        if(session("maskapai") !== null) return redirect()->route("maskapai_home");
+        
+        return $next($request);
     }
 }

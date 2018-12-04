@@ -18,15 +18,9 @@ class AdminController extends Controller
         $this->admin_repo = new AdminRepoImpl();
     }
 
-    public function home(){
-        return session("admin") != null 
-            ? redirect()->route('top_up')
-            : view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
-    }
-
     public function logout(Request $req) {
         $req->session()->forget('admin');
-        return redirect()->route('home');
+        return redirect()->route('root');
     }
 
     public function topUp(Request $req) {
@@ -50,7 +44,7 @@ class AdminController extends Controller
             return redirect()->route('error');
         }
 
-        return redirect()->route('top_up');
+        return redirect()->route('admin_top_up');
     }
     
     public function declineTopUp(Request $req){
@@ -61,7 +55,7 @@ class AdminController extends Controller
             return redirect()->route('error');
         }
 
-        return redirect()->route('top_up');
+        return redirect()->route('admin_top_up');
     }
     
     public function withdraw() {

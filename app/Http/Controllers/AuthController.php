@@ -56,7 +56,7 @@ class AuthController extends Controller
             // save admin id in session  
             $req->session()->put("admin", ['id' => $user->id, 'role' => Role::$ADMIN]);
 
-            return redirect()->route('top_up');
+            return redirect()->route('admin_top_up');
         } 
 
         // this must be user
@@ -65,5 +65,44 @@ class AuthController extends Controller
             'token' => $user->remember_token,
             'privilege' => '2'
         ], 200);
+    }
+
+    public function login_admin_maskapai(Request $req){
+        $email = $req->input('email');
+        $password = $req->input('password');
+
+        if($email == "" || $password == "") {
+            // set error
+            return redirect()->route('root'); 
+        }
+
+        
+        // so, this might be the admin
+        $user = User::where('email', $email)->first();
+        $bus_admin = BusAdmin::where('email', $email)->first();
+        if($bus_admin == NULL){
+            // if it's user, but the creds not match any
+            if(!app('hash')->check($password, $user->password)){
+                return redirect()->route('root');
+            } 
+
+            // check if this is the admin
+            if ($user->role == Role::$ADMIN) {
+                // save admin id in session  
+                $req->session()->put("admin", ['id' => $user->id, 'role' => Role::$ADMIN]);
+                return redirect()->route('admin_top_up');
+            }
+
+            return redirect()->route('root');
+        } 
+
+        if(!app('hash')->check($password, $bus_admin->password)) {
+            return redirect()->route('root');
+        }
+        
+        // if it is, save user id & role in session  
+        $req->session()->put("maskapai", ['id' => $bus_admin->id, 'role' => Role::$BUS_ADMIN]);
+
+        return redirect()->route('dashboard');
     }
 }

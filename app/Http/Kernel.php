@@ -44,6 +44,14 @@ class Kernel extends HttpKernel
 
         'maskapai' => [
             \App\Http\Middleware\CheckMaskapaiAuth::class,
+        ],
+
+        'admin' => [
+            \App\Http\Middleware\CheckAdminRole::class,            
+        ],
+
+        'login' => [
+            \App\Http\Middleware\AuthMiddleware::class,
         ]
     ];
 

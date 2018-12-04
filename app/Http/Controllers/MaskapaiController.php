@@ -32,9 +32,7 @@ class MaskapaiController extends Controller {
     }
 
     public function home() {
-        return session("user") !== null
-            ? redirect()->route('dashboard')
-            : view('maskapai/home', ['title' => $_ENV['APP_NAME']]);
+        return redirect()->route('dashboard');
     }
 
     public function register(Request $request){
@@ -42,7 +40,7 @@ class MaskapaiController extends Controller {
         $request['password'] = app('hash')->make($request['password']);
         try {
             BusAdmin::create($request->all());
-            return redirect()->route('home');
+            return redirect()->route('maskapai_home');
         } catch(\Exception $e) {
             // should be logged not dd-ed
             dd($e);
@@ -58,13 +56,13 @@ class MaskapaiController extends Controller {
     }
   
     public function logout(Request $req) {
-        $req->session()->forget('user');
-        return redirect()->route('home');
+        $req->session()->forget('maskapai');
+        return redirect()->route('root');
     }
 
     public function dashboard(Request $req) {
         // get session
-        $id = $req->session()->get("user")['id'];
+        $id = $req->session()->get("maskapai")['id'];
         $busses = $this->bus_repo->get_busses($id);
         
         if(count($busses) <= 0) {
@@ -208,7 +206,7 @@ class MaskapaiController extends Controller {
     }
 
     public function view_withdraw(Request $req) {
-        $maskapai = session('user');
+        $maskapai = session('maskapai');
         $money_to_withdraw = $this->money_repo->maskapai_wd($maskapai['id']);
         $withdraw_hist = $this->money_repo->maskapai_wd_hist($maskapai['id']);
 
@@ -220,7 +218,7 @@ class MaskapaiController extends Controller {
     }
 
     public function req_withdraw(Request $req) {
-        $maskapai = session('user');
+        $maskapai = session('maskapai');
         // do withdraw
         $this->money_repo->maskapai_do_wd($maskapai['id']);
         $isSuccess = $this->money_repo->maskapai_wd($maskapai['id']);        
