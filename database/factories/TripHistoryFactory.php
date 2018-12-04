@@ -10,6 +10,6 @@ $factory->define(App\TripHistory::class, function (Faker $faker) {
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'user_id' => rand(1, 5),
-        'bus_id' => rand(1, 3),
+        'bus_id' => rand(1, 6),
     ];
 });
