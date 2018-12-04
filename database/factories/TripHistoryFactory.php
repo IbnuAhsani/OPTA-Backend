@@ -9,7 +9,7 @@ $factory->define(App\TripHistory::class, function (Faker $faker) {
         'on_board_time' => mt_rand(1262055681,1262255681),
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        'user_id' => rand(1, 5),
+        'user_id' => rand(1, 3),
         'bus_id' => rand(1, 6),
     ];
 });

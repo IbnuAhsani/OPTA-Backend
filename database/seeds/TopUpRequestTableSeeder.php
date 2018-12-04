@@ -11,6 +11,6 @@ class TopUpRequestTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\TopUpRequest::class, 8)->create();        
+        factory(App\TopUpRequest::class, 12)->create();        
     }
 }
