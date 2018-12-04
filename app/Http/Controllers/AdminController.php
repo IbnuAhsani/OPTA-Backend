@@ -82,7 +82,7 @@ class AdminController extends Controller
             return redirect()->route('error');
         }
 
-        return redirect()->route('withdraw');
+        return redirect()->route('admin_withdraw');
     }
 
     public function declineWithdraw(Request $req){
@@ -93,7 +93,7 @@ class AdminController extends Controller
             return redirect()->route('error');
         }
 
-        return redirect()->route('withdraw');
+        return redirect()->route('admin_withdraw');
     }
 
     public function manifesto(){
