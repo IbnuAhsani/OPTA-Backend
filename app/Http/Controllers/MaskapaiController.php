@@ -77,7 +77,7 @@ class MaskapaiController extends Controller {
         $bus_number = $req->input('bus_number');
         $price = $req->input('price');
 
-        $bus_admin_id = $req->session()->get("user")['id'];
+        $bus_admin_id = $req->session()->get("maskapai")['id'];
 
         // validator
         // ...
