@@ -2,7 +2,7 @@
     <header class="demo-drawer-header">
         <img src="{{ asset('images/bus-icon.png') }}" class="demo-avatar">
         <div class="demo-avatar-dropdown">
-            <span>OPTA</span>
+            <span>Admin</span>
         </div>
     </header>
     <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
